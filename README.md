@@ -30,7 +30,7 @@ ln -s ~/wallpaper/best_wallpaper.png ~/.dotfiles/gui/.config/sway/wallpaper
 
 Once these files are created the configs can be installed with
 ```bash
-stow editor gui shell
+stow editor gui shell scrips
 ```
 
 # Notes

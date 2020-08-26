@@ -116,12 +116,15 @@ endif
 syntax on
 hi Normal ctermbg=NONE
 " Brighter comments
-" call Base16hi("Comment", g:base16_gui09, "", g:base16_cterm09, "", "", "")
+" call Base16hi("Comment", g:base16_gui0A, "", g:base16_cterm0A, "", "", "")
 
-" Brighter symbol match background
-call Base16hi("CocHighlightText", "", g:base16_gui03, "", g:base16_cterm03, "", "")
+" Brighter symbol match background, for use with horizon-darker
+call Base16hi("CocHighlightText", "", g:base16_gui02, "", g:base16_cterm02, "", "")
+" call Base16hi("CocRustChainingHint", g:base16_gui0B, "", g:base16_cterm0F, "", "", "")
 
-let CocHighlightText = g:base16_cterm09
+" Split Complementary color of Horizon-Dark comment color for Rust analyzer
+" type hints.
+highlight CocRustChainingHint guifg=#8d7067 guibg='NONE'
 
 " Plugin settings
 let g:secure_modelines_allowed_items = [

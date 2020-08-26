@@ -5,6 +5,7 @@
 This repository contains configuration files for many programs that I regularly use on a day to day basis.
  - [`alacritty`](https://github.com/alacritty/alacritty)
  - [`nvim`](https://neovim.io/)
+ - [`ranger`](https://github.com/ranger/ranger)
  - [`sway`](https://swaywm.org)
  - [`waybar`](https://github.com/Alexays/Waybar)
 

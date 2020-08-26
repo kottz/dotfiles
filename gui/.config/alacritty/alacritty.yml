@@ -1,4 +1,4 @@
-# Base16 Horizon Dark - alacritty color config
+# Base16 Horizon Dark 256 - alacritty color config
 # Michaël Ball (http://github.com/michael-ball/)
 colors:
   # Default colors
@@ -25,12 +25,18 @@ colors:
   # Bright colors
   bright:
     black:   '0x6f6f70'
-    red:     '0xe58d7d'
-    green:   '0x232530'
-    yellow:  '0x2e303e'
-    blue:    '0x9da0a2'
-    magenta: '0xdcdfe4'
-    cyan:    '0xe4a382'
+    red:     '0xe93c58'
+    green:   '0xefaf8e'
+    yellow:  '0xefb993'
+    blue:    '0xdf5273'
+    magenta: '0xb072d1'
+    cyan:    '0x24a8b4'
     white:   '0xe3e6ee'
 
-draw_bold_text_with_bright_colors: false
+  indexed_colors:
+    - { index: 16, color: '0xe58d7d' }
+    - { index: 17, color: '0xe4a382' }
+    - { index: 18, color: '0x232530' }
+    - { index: 19, color: '0x2e303e' }
+    - { index: 20, color: '0x9da0a2' }
+    - { index: 21, color: '0xdcdfe4' }

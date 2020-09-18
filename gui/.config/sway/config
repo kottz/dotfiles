@@ -17,6 +17,7 @@ set $right i
 set $term alacritty
 # File browser
 set $file_browser ranger
+set $web_browser firefox
 # Your preferred application launcher
 # Note: it's recommended that you pass the final command to sway
 set $menu rofi -show drun | xargs swaymsg exec
@@ -59,17 +60,17 @@ include monitor
        middle_emulation enabled
    }
 # Keyboard settings
-   input "*" { 
-	xkb_options ctrl:nocaps
-	xkb_layout se,us
-	#xkb_variant colemak
-	xkb_options grp:alt_space_toggle
-   }
+#   input "*" { 
+#	xkb_options ctrl:nocaps
+#	xkb_layout se,us
+#	xkb_variant colemak
+#	xkb_options grp:alt_space_toggle
+#   }
    input "1:1:AT_Translated_Set_2_keyboard"  {
-	xkb_options ctrl:nocaps
-	#xkb_layout us,se
-	#xkb_variant colemak
+	xkb_layout "us,se"
+	xkb_variant "colemak,,"
 	xkb_options grp:alt_space_toggle
+	xkb_options ctrl:nocaps
    }
 #
 # You can get the names of your inputs by running: swaymsg -t get_inputs
@@ -100,6 +101,10 @@ include monitor
 
     #Start Ranger
     bindsym $mod+Shift+m exec $term -e $file_browser 
+    
+    #Start firefox
+    bindsym $mod+Ctrl+Shift+Alt+y exec $web_browser 
+
     # exit sway (logs you out of your Wayland session)
     bindsym $mod+Shift+b exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
 #

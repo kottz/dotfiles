@@ -1,0 +1,22 @@
+# Unmap qwerty movement
+unmap j
+unmap k
+unmap l
+unmap N
+
+# Colemak
+map n scrollDown
+map e scrollUp
+map i scrollRight
+
+map k performFind
+map K performBackwardsFind
+
+map s enterInsertMode
+
+map l goBack
+
+map H previousTab
+map I nextTab
+
+map J visitPreviousTab

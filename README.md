@@ -9,6 +9,7 @@ This repository contains configuration files for many programs that I regularly 
  - [`sway`](https://swaywm.org)
  - [`waybar`](https://github.com/Alexays/Waybar)
 
+
 # Installation
 Clone into `~/.dotfiles`. It is important that this repository is placed in 
 the home directory since [stow](https://www.gnu.org/software/stow/) is used to
@@ -32,6 +33,10 @@ ln -s ~/wallpaper/best_wallpaper.png ~/.dotfiles/gui/.config/sway/wallpaper
 Once these files are created the configs can be installed with
 ```bash
 stow editor gui shell scrips
+```
+## Dependencies
+```bash
+ttf-font-awesome 
 ```
 
 # Notes

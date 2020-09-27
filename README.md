@@ -36,7 +36,12 @@ stow editor gui shell scrips
 ```
 ## Dependencies
 ```bash
-ttf-font-awesome 
+ttf-font-awesome network-manager-applet
+```
+
+Start nm-applet with the systemd user service
+```bash
+systemctl --user enable nm-applet.service
 ```
 
 # Notes

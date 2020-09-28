@@ -27,6 +27,7 @@
         "max-length": 60
     },
     "clock": {
+	"interval": 60,
         "format-alt": "{:%Y-%m-%d}"
     },
     "cpu": {

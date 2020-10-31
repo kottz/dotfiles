@@ -38,6 +38,10 @@ stow editor gui shell scrips
 ```bash
 ttf-font-awesome network-manager-applet
 ```
+The vim config also requires
+```bash
+cargo install proximity-sort
+```
 
 Start nm-applet with the systemd user service
 ```bash

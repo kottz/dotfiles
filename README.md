@@ -32,12 +32,13 @@ ln -s ~/wallpaper/best_wallpaper.png ~/.dotfiles/gui/.config/sway/wallpaper
 
 Once these files are created the configs can be installed with
 ```bash
-stow editor gui shell scrips
+stow editor gui shell scripts
 ```
 ## Dependencies
 ```bash
-ttf-font-awesome network-manager-applet
+ttf-font-awesome network-manager-applet ttf-liberation
 ```
+`ttf-liberation` will fix fonts in firefox
 The vim config also requires
 ```bash
 cargo install proximity-sort

@@ -15,6 +15,8 @@ call plug#begin()
 Plug 'ciaranm/securemodelines'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'justinmk/vim-sneak'
+Plug 'Raimondi/delimitMate'
+Plug 'lambdalisue/suda.vim'
 
 " GUI enhancements
 Plug 'itchyny/lightline.vim'
@@ -84,13 +86,15 @@ silent! source ~/.vimrc-local
 " Switch tabs with Ctrl.
   nnoremap <C-i> <C-PageDown>|nnoremap <C-h> <C-PageUp>
 " Switch panes with Shift.
-  noremap H <C-w>h|noremap I <C-w>l|noremap N <C-w>j|noremap E <C-w>k
+  noremap <C-w><C-i> <C-w>l
+  noremap <C-w><C-n> <C-w>j
+  noremap <C-w><C-e> <C-w>k
 " Moving windows around.
-  noremap <C-w>N <C-w>J|noremap <C-w>E <C-w>K|noremap <C-w>I <C-w>L
+""  nnoremap <C-w>N <C-w>J|noremap <C-w>E <C-w>K|noremap <C-w>I <C-w>L
 " High/Low. Mid remains `M` since <C-m> is unfortunately interpreted as <CR>.
-  noremap <C-e> H|noremap <C-n> L
+""  nnoremap <C-e> H|noremap <C-n> L
 " Scroll up/down.
-  noremap zn <C-y>|noremap ze <C-e>
+  nnoremap zn <C-y>|noremap ze <C-e>
 " Back and forth in jump and changelist.
   nnoremap gh <C-o>|nnoremap gi <C-i>|nnoremap gH g;|nnoremap gI g,
 
@@ -99,7 +103,7 @@ if has('nvim')
     set inccommand=nosplit
     noremap <C-q> :confirm qall<CR>
 end
-
+"colorscheme base16-horizon-dark
 " deal with colors
 if !has('gui_running')
   set t_Co=256
@@ -486,6 +490,10 @@ noremap <leader>m ct_
 map <F1> <Esc>
 imap <F1> <Esc>
 
+" Rebind some Colemak specific options
+noremap <C-w><C-i> <C-w>l
+noremap <C-w><C-n> <C-w>j
+noremap <C-w><C-e> <C-w>k
 
 " =============================================================================
 " # Autocommands

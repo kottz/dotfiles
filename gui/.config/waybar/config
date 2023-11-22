@@ -1,0 +1,58 @@
+{
+    "layer": "top", // Waybar at top layer
+    // "position": "bottom", // Waybar at the bottom of your screen
+    // "height": 30, // Waybar height
+    // "width": 1920, // Waybar width
+    // Choose the order of the modules
+    "modules-left": ["sway/workspaces", "custom/spotify"],
+    "modules-center": ["sway/window"],
+    "modules-right": ["tray", "bluetooth", "network", "battery", "pulseaudio", "clock"],
+    // Modules configuration
+    "sway/window": {
+        "max-length": 60
+    },
+    "clock": {
+        "format-alt": "{:%Y-%m-%d}"
+    },
+    "battery": {
+        "format": "{capacity}% {icon}",
+        "format-icons": ["", "", "", "", ""]
+    },
+    "network": {
+        // "interface": "wlp2s0", // (Optional) To force the use of this interface
+        "format-wifi": "{essid} ({signalStrength}%)  - {ipaddr}",
+        "format-ethernet": "{ifname}  - {ipaddr}",
+        "format-disconnected": "Disconnected ⚠"
+    },
+    "pulseaudio": {
+        "format": "{volume}% {icon}",
+        "format-bluetooth": "{volume}% {icon}",
+        "format-muted": "",
+        "format-icons": {
+            "headphones": "",
+            "handsfree": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["", ""]
+        }
+    },
+    "bluetooth": {
+	"format": " {status}",
+	"format-disabled": "", 
+	"format-connected": " {device_alias}",
+	//"tooltip-format-enumerate-connected": "{device_alias}",
+	//"format": " {device-enumerate} {device_alias} {status}" 
+    },
+    "tray": {
+    	"icon-size": 21,
+    	"spacing": 10
+    },
+    "custom/spotify": {
+        "format": "  {}",
+        "max-length": 40,
+        "exec": "playerctl --follow -p spotify metadata title",
+        "exec-if": "pgrep spotify"
+    }
+}

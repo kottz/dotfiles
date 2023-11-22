@@ -1,0 +1,213 @@
+# Sway Configuration File
+
+### Variables
+set $mod Mod4
+set $left h
+set $down n
+set $up e
+set $right i
+set $term foot
+set $file_browser yazi
+set $mail_reader aerc
+set $web_browser chromium --ozone-platform-hint=auto
+set $note_taker flatpak run com.logseq.Logseq
+set $menu tofi-drun --font /usr/share/fonts/adobe-source-code-pro/SourceCodePro-Regular.otf --hint-font false | xargs swaymsg exec --
+set $lock_bg ~/Pictures/wallpapers/dark_house.jpg
+
+
+### Output configuration
+output * bg ./wallpaper fill
+include monitor
+
+### Input configuration
+input "2:7:SynPS/2_Synaptics_TouchPad" {
+    dwt enabled
+    tap enabled
+    natural_scroll enabled
+    middle_emulation enabled
+}
+
+input "1:1:AT_Translated_Set_2_keyboard" {
+    xkb_layout us,us
+    xkb_variant colemak,
+    xkb_options grp:alt_space_toggle
+}
+
+input "12951:18804:ZSA_Technology_Labs_Inc_ErgoDox_EZ_Keyboard" {
+    xkb_layout se,us
+    xkb_options grp:alt_space_toggle,ctrl:nocaps
+}
+
+input "12951:18804:ZSA_Technology_Labs_Inc_ErgoDox_EZ" {
+    xkb_layout se,us
+    xkb_options grp:alt_space_toggle,ctrl:nocaps
+}
+
+### Key bindings
+bindsym $mod+Return exec $term
+bindsym $mod+Shift+q kill
+bindsym $mod+d exec $menu
+floating_modifier $mod normal
+bindsym $mod+Shift+c reload
+bindsym $mod+Shift+b exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
+bindsym $mod+l exec swaylock -i $lock_bg
+bindsym $mod+Shift+l exec wlogout
+
+
+# Application shortcuts
+bindsym $mod+m exec $term -e $file_browser
+bindsym $mod+Shift+m exec $term -e $mail_reader
+bindsym $mod+y exec $web_browser
+bindsym $mod+Shift+y exec $web_browser $(tofi_bookmarks)
+bindsym $mod+u exec $note_taker
+
+# Moving around:
+bindsym $mod+$left focus left
+bindsym $mod+$down focus down
+bindsym $mod+$up focus up
+bindsym $mod+$right focus right
+
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# Move window
+bindsym $mod+Shift+$left move left
+bindsym $mod+Shift+$down move down
+bindsym $mod+Shift+$up move up
+bindsym $mod+Shift+$right move right
+
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# Workspaces:
+bindsym $mod+1 workspace 1
+bindsym $mod+2 workspace 2
+bindsym $mod+3 workspace 3
+bindsym $mod+4 workspace 4
+bindsym $mod+5 workspace 5
+bindsym $mod+6 workspace 6
+bindsym $mod+7 workspace 7
+bindsym $mod+8 workspace 8
+bindsym $mod+9 workspace 9
+bindsym $mod+0 workspace 10
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace 1
+bindsym $mod+Shift+2 move container to workspace 2
+bindsym $mod+Shift+3 move container to workspace 3
+bindsym $mod+Shift+4 move container to workspace 4
+bindsym $mod+Shift+5 move container to workspace 5
+bindsym $mod+Shift+6 move container to workspace 6
+bindsym $mod+Shift+7 move container to workspace 7
+bindsym $mod+Shift+8 move container to workspace 8
+bindsym $mod+Shift+9 move container to workspace 9
+bindsym $mod+Shift+0 move container to workspace 10
+
+# Layout stuff:
+bindsym $mod+b splith
+bindsym $mod+v splitv
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+p layout toggle split
+bindsym $mod+f fullscreen
+bindsym $mod+Shift+space floating toggle
+bindsym $mod+space focus mode_toggle
+bindsym $mod+a focus parent
+
+# Scratchpad:
+bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+minus scratchpad show
+
+# Resizing containers:
+bindsym $mod+r mode "resize"
+mode "resize" {
+    bindsym $left resize shrink width 10px
+    bindsym $down resize grow height 10px
+    bindsym $up resize shrink height 10px
+    bindsym $right resize grow width 10px
+
+    bindsym Left resize shrink width 10px
+    bindsym Down resize grow height 10px
+    bindsym Up resize shrink height 10px
+    bindsym Right resize grow width 10px
+
+    # return to default mode
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+#Application specific setup
+# https://github.com/ValveSoftware/steam-for-linux/issues/1040
+for_window [class="^Steam$" title="^Friends$"] floating enable
+for_window [class="^Steam$" title="Steam - News"] floating enable
+for_window [class="^Steam$" title=".* - Chat"] floating enable
+for_window [class="^Steam$" title="^Settings$"] floating enable
+for_window [class="^Steam$" title=".* - event started"] floating enable
+for_window [class="^Steam$" title=".* CD key"] floating enable
+for_window [class="^Steam$" title="^Steam - Self Updater$"] floating enable
+for_window [class="^Steam$" title="^Screenshot Uploader$"] floating enable
+for_window [class="^Steam$" title="^Steam Guard - Computer Authorization Required$"] floating enable
+for_window [title="^Steam Keyboard$"] floating enable
+
+# Status Bar configuration
+bar {
+	position top
+	swaybar_command waybar
+}
+
+# Audio controls
+bindsym XF86AudioRaiseVolume exec pamixer -i 5
+bindsym XF86AudioLowerVolume exec pamixer -d 5
+bindsym XF86AudioMute exec pamixer -t
+bindsym XF86AudioMicMute exec amixer set Capture toggle
+
+# Bluetooth controls
+bindsym $mod+Shift+v exec ~/.scripts/bluetooth_tofi.sh
+
+# Brightness controls
+bindsym XF86MonBrightnessDown exec brightnessctl set 5%- -n 1
+bindsym XF86MonBrightnessUp exec brightnessctl set +5%
+
+# Music Controls
+bindsym XF86Search exec playerctl --ignore-player=chromium previous
+bindsym XF86LaunchA exec playerctl --ignore-player=chromium play-pause
+bindsym XF86Explorer exec playerctl --ignore-player=chromium next 
+
+# Screenshot bindings
+bindsym $mod+Ctrl+Print exec ~/.scripts/screenshot_region.sh
+bindsym $mod+Print exec ~/.scripts/screenshot.sh
+bindsym $mod+g exec grim -g "$(slurp)" - | wl-copy
+
+# Lock screen on idle
+exec swayidle -w \
+	timeout 300 'swaylock -f -c 000000 -i $lock_bg' \
+	timeout 600 'swaymsg "output * dpms off"' \
+	resume 'swaymsg "output * dpms on"' \
+	before-sleep 'swaylock -f -c 000000 -i $lock_bg'
+
+# Theme
+include colorscheme
+
+# Basic color configuration using the Base16 variables for windows and borders.
+# Property Name         Border  BG      Text    Indicator Child Border
+#client.focused          $base05 $base0D $base00 $base0D $base0D
+#Trying to test the waybarcolors
+client.focused          #2C3D55 #2C3D55 $base05 #607aa1 #3f526e
+client.focused_inactive $base01 $base01 $base05 $base03 $base01
+client.unfocused        $base01 $base00 $base05 $base01 $base01
+client.urgent           $base08 $base08 $base00 $base08 $base08
+client.placeholder      $base00 $base00 $base05 $base00 $base00
+client.background       $base07
+
+default_border pixel 2
+gaps inner 8
+
+include /etc/sway/config.d/*
+
+exec /usr/bin/nm-applet
+exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway

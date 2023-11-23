@@ -1,0 +1,70 @@
+{
+  "keyMappings": "# Unmap qwerty movement\nunmap j\nunmap k\nunmap l\nunmap N\n\n# Colemak\nmap n scrollDown\nmap e scrollUp\nmap i scrollRight\n\nmap k performFind\nmap K performBackwardsFind\n\nmap s enterInsertMode\n\nmap l goBack\n\nmap H previousTab\nmap I nextTab\n\nmap J visitPreviousTab",
+  "settingsVersion": "2.0.5",
+  "exclusionRules": [
+    {
+      "passKeys": "",
+      "pattern": "https?://mail.google.com/*"
+    },
+    {
+      "passKeys": "",
+      "pattern": "https?://vim-adventures.com/*"
+    },
+    {
+      "passKeys": "",
+      "pattern": "https?://vim-adventures.com/*"
+    },
+    {
+      "passKeys": "",
+      "pattern": "https?://192.168.1.90:8080/*"
+    },
+    {
+      "passKeys": "",
+      "pattern": "https?://192.168.1.90:8080/*"
+    },
+    {
+      "passKeys": "*",
+      "pattern": "https?://monkeytype.com/*"
+    },
+    {
+      "passKeys": "",
+      "pattern": "https?://monkeytype.com/*"
+    },
+    {
+      "passKeys": "",
+      "pattern": "https?://www.beatsperminuteonline.com/*"
+    },
+    {
+      "passKeys": "",
+      "pattern": "https?://www.beatsperminuteonline.com/*"
+    },
+    {
+      "passKeys": "",
+      "pattern": "https?://hackertyper.net/*"
+    },
+    {
+      "passKeys": "",
+      "pattern": "https?://excalidraw.com/*"
+    },
+    {
+      "passKeys": "",
+      "pattern": "https?://helsing.studio/*"
+    },
+    {
+      "passKeys": "",
+      "pattern": "https?://str0m.test:3000/*"
+    },
+    {
+      "passKeys": "m",
+      "pattern": "https?://www.twitch.tv/*"
+    },
+    {
+      "passKeys": "<>",
+      "pattern": "https?://www.svtplay.se/*"
+    },
+    {
+      "passKeys": "<>f",
+      "pattern": "https?://www.youtube.com/*"
+    }
+  ]
+}

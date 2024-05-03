@@ -38,6 +38,14 @@ end
 # Custom Shortcuts
 bind \ck fzf_cd_tmux 
 
+function subs
+    if set -q argv[1]
+        yt-dlp --write-auto-subs --convert-subs srt --sub-format txt --skip-download $argv
+    else
+        echo "Error: No argument provided. Please specify a URL."
+    end
+end
+
 # Aliases
 alias ipi="curl ipinfo.io"
 alias b="acpi -b"
@@ -50,6 +58,7 @@ alias cz='cd && cd "$(dirname "$(fzf)")"'
 alias t='cd $(cat ~/.config/cur_dir)'
 alias ts='pwd > ~/.config/cur_dir'
 alias l='ls -lah'
+alias tl='tmux list-sessions'
 
 #this should be at the end of the file
 zoxide init fish | source

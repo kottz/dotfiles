@@ -9,7 +9,7 @@ set $right i
 set $term foot
 set $file_browser yazi
 set $mail_reader aerc
-set $web_browser chromium --ozone-platform-hint=auto
+set $web_browser chromium --ozone-platform=wayland
 set $note_taker flatpak run com.logseq.Logseq
 set $menu tofi-drun --font /usr/share/fonts/adobe-source-code-pro/SourceCodePro-Regular.otf --hint-font false | xargs swaymsg exec --
 set $lock_bg ~/Pictures/wallpapers/dark_house.jpg
@@ -184,8 +184,8 @@ bindsym $mod+g exec grim -g "$(slurp)" - | wl-copy
 
 # Lock screen on idle
 exec swayidle -w \
-	timeout 300 'swaylock -f -c 000000 -i $lock_bg' \
-	timeout 600 'swaymsg "output * dpms off"' \
+	timeout 1000 'swaylock -f -c 000000 -i $lock_bg' \
+	timeout 1200 'swaymsg "output * dpms off"' \
 	resume 'swaymsg "output * dpms on"' \
 	before-sleep 'swaylock -f -c 000000 -i $lock_bg'
 

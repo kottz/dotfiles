@@ -6,9 +6,10 @@ if [ "$#" -eq 0 ]; then
     exit 1
 fi
 
+token_file="$HOME/.scripts/tv4play_token"
 # Read the token from the file 'tv4play_token'
-if [ -f tv4play_token ]; then
-    TOKEN=$(cat tv4play_token)
+if [ -f $token_file ]; then
+    TOKEN=$(cat $token_file)
 else
     echo "Token file 'tv4play_token' not found."
     exit 1

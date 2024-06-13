@@ -16,6 +16,19 @@ end
 # application env
 set -gx EDITOR nvim
 
+function cloc_git
+    if test (count $argv) -eq 0
+        echo "Usage: count_lines_in_repo <repository-url>"
+        return 1
+    end
+
+    set repo_url $argv[1]
+    set temp_dir /tmp/temp-linecount-repo
+
+    git clone --depth 1 $repo_url $temp_dir
+    cloc $temp_dir
+    rm -rf $temp_dir
+end
 
 # Fuzzy find a folder, if there is a tmux session in folder, attach to it,
 # otherwise create a new session with the folder as the working directory
@@ -30,13 +43,11 @@ function fzf_cd_tmux
         else
             tmux new-session -s $session_name -c "$selected_dir"
         end
-    else
-        echo "No directory selected."
     end
 end
 
 # Custom Shortcuts
-bind \ck fzf_cd_tmux 
+bind \co fzf_cd_tmux 
 
 function subs
     if set -q argv[1]

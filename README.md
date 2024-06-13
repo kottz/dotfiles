@@ -28,7 +28,7 @@ stow editor gui shell scripts env
 ```
 ## Dependencies
 ```bash
-ttf-font-awesome ttf-jetbrains-mono network-manager-applet ripgrep fd foot aerc waybar sway nvim tofi tmux wlogout yazi
+ttf-font-awesome ttf-jetbrains-mono network-manager-applet ripgrep fd foot aerc waybar sway neovim tofi tmux wlogout yazi
 ```
 
 The nvim config also requires

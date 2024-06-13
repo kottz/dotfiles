@@ -45,6 +45,7 @@ Then copy the contents of the `interception` folder to `/etc/interception/`. Mak
 ```bash
 swaymsg -t get_inputs
 ```
+Also enable the `udevmon.service` service.
 
 # Notes
 - I use [Colemak](https://colemak.com/) so all applications are configured accordingly.

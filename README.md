@@ -39,7 +39,7 @@ cargo install proximity-sort
 ## Modify Caps Lock to Ctrl/Backspace
 In order to get the Caps Lock functionality you need [interception-tools](https://gitlab.com/interception/linux/tools).
 ```bash
-sudo pacman -S interception-tools
+sudo pacman -S interception-tools interception-dual-function-keys
 ```
 Then copy the contents of the `interception` folder to `/etc/interception/`. Make sure to update the `udevmon.yaml` to use the ID of your keyboard. Your keyboard identifier can be found with:
 ```bash

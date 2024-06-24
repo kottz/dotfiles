@@ -11,9 +11,6 @@
     "sway/window": {
         "max-length": 60
     },
-    //"clock": {
-    //    "format-alt": "{:%Y-%m-%d}"
-    //},
     "clock": {
         "format": "{:%H:%M}",
         "format-alt": "{:%A, %B %d, %Y (%R)}",

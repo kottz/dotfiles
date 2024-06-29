@@ -119,6 +119,19 @@ button:hover {
     color: #ffffff;
 }
 
+#custom-bluetooth_battery {
+    background-color: #2C3D55;
+    color: #ffffff;
+    padding: 0 10px;
+}
+
+#custom-bluetooth_battery.disconnected,
+#custom-bluetooth_battery.no-battery,
+#custom-bluetooth_battery.has-battery {
+    background-color: #2C3D55;
+    color: #ffffff;
+}
+
 #battery {
     background-color: #2C3D55;
     color: #ffffff;

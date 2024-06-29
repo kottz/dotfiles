@@ -6,7 +6,7 @@
     // Choose the order of the modules
     "modules-left": ["sway/workspaces", "custom/spotify"],
     "modules-center": ["sway/window"],
-    "modules-right": ["tray", "bluetooth", "network", "battery", "pulseaudio", "clock"],
+    "modules-right": ["tray", "bluetooth", "custom/bluetooth_battery", "network", "battery", "pulseaudio", "clock"],
     // Modules configuration
     "sway/window": {
         "max-length": 60
@@ -61,11 +61,18 @@
         }
     },
     "bluetooth": {
-	"format": " {status}",
-	"format-disabled": "", 
-	"format-connected": " {device_alias}",
-	//"tooltip-format-enumerate-connected": "{device_alias}",
-	//"format": " {device-enumerate} {device_alias} {status}" 
+        "format": " {status}",
+        "format-disabled": "", 
+        "format-connected": " {device_alias}",
+        "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
+        "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
+        "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}"
+    },
+    "custom/bluetooth_battery": {
+        "format": " {}",
+        "exec": "~/.config/waybar/scripts/bluetooth_battery.sh",
+        "return-type": "json",
+        "interval": 30
     },
     "tray": {
     	"icon-size": 21,

@@ -16,7 +16,7 @@ power_state=$(bluetoothctl show | grep "Powered:" | awk '{print $2}')
 if [ "$power_state" != "yes" ]; then
     echo "Bluetooth is off. Turning it on..."
     bluetoothctl power on
-    #sleep 1  # Wait a bit for the power on command to take effect
+    sleep 1  # Wait a bit for the power on command to take effect
 fi
 # Get list of devices with 'bluetoothctl devices'
 device_list=$(bluetoothctl devices)

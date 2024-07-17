@@ -281,7 +281,7 @@ vim.o.mouse = 'a'
 -- Sync clipboard between OS and Neovim.
 --  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
-vim.o.clipboard = 'unnamedplus'
+--vim.o.clipboard = 'unnamedplus'
 
 -- Enable break indent
 vim.o.breakindent = true
@@ -856,8 +856,9 @@ keymap('n', 'I', '$', opts)
 --keymap('n', '<leader>c', ':read !wl-copy', opts)
 --keymap('n', '<leader>c', ':let @*=@<CR>:!echo -n *@ | wl-copy<CR>', opts)
 keymap('n', '<leader>y', '"+y', opts)
-keymap('n', '<leader>p', '+p', opts)
-
+keymap('v', '<leader>y', '"+y', opts)
+keymap('n', '<leader>p', '"+p', opts)
+keymap('v', '<leader>p', '"+p', opts)
 
 -- Open new file adjacent to current file
 --nnoremap <leader>e :e <C-R>=expand("%:p:h") . "/" <CR>

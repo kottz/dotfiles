@@ -1,0 +1,29 @@
+{
+  "base_keymap": "VSCode",
+  "vim_mode": true,
+  "ui_font_size": 16,
+  "buffer_font_size": 16,
+  "theme": {
+    "mode": "dark",
+    "light": "One Light",
+    "dark": "One Dark"
+  },
+  // Vim-specific settings
+  "vim": {
+    "use_system_clipboard": "always",
+    "use_multiline_find": true,
+    "use_smartcase_find": true,
+    "toggle_relative_line_numbers": true
+  },
+  // General editor settings that work well with vim mode
+  "relative_line_numbers": true,
+  "cursor_blink": false,
+  "scroll_beyond_last_line": "off",
+  "vertical_scroll_margin": 3,
+  // Common vim command aliases
+  "command_aliases": {
+    "W": "w",
+    "Wq": "wq",
+    "Q": "q"
+  }
+}

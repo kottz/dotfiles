@@ -1,5 +1,13 @@
 [
   {
+    "context": "Editor && vim_mode == normal && vim_operator == none && !VimWaiting",
+    "bindings": {
+      // Space leader bindings
+      "space space": "pane::AlternateFile",
+      "space f": "file_finder::Toggle" // Quick file search
+    }
+  },
+  {
     "context": "VimControl && !menu",
     "bindings": {
       // Previous Colemak movement mappings

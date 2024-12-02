@@ -4,7 +4,9 @@
     "bindings": {
       // Space leader bindings
       "space space": "pane::AlternateFile",
-      "space f": "file_finder::Toggle" // Quick file search
+      "space f": "file_finder::Toggle",
+      "space w": "workspace::Save",
+      "space a": "editor::ToggleInlineCompletions"
     }
   },
   {

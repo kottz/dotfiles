@@ -6,7 +6,8 @@
       "space space": "pane::AlternateFile",
       "space f": "file_finder::Toggle",
       "space w": "workspace::Save",
-      "space a": "editor::ToggleInlineCompletions"
+      "space a": "editor::ToggleInlineCompletions",
+      "space l": "editor::Format"
     }
   },
   {

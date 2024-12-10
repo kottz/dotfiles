@@ -7,7 +7,17 @@
       "space f": "file_finder::Toggle",
       "space w": "workspace::Save",
       "space a": "editor::ToggleInlineCompletions",
-      "space l": "editor::Format"
+      "space l": "editor::Format",
+      "space h": "pane::ActivatePrevItem",
+      "space i": "pane::ActivateNextItem"
+      //";": "command_palette::Toggle"
+    }
+  },
+  {
+    "context": "FileFinder",
+    "bindings": {
+      "ctrl": null,
+      "alt-s": "file_finder::ToggleMenu"
     }
   },
   {

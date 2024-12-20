@@ -463,17 +463,13 @@ local servers = {
     }
   },
   pyright = {},
-  typescript_language_server = {}, -- for tsserver
   lua_ls = {
     Lua = {
       workspace = { checkThirdParty = false },
       telemetry = { enable = false },
     },
   },
-  html_lsp = {},
-  prettier = {},
   ruff = {},
-  fixjson = {},
   golangci_lint_ls = {},
 }
 

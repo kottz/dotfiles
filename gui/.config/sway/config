@@ -131,6 +131,9 @@ bindsym $mod+a focus parent
 bindsym $mod+Shift+minus move scratchpad
 bindsym $mod+minus scratchpad show
 
+# Movie mode binding - float, resize, position and make sticky the focused window
+bindsym $mod+Shift+f floating enable; resize set 576 324; move position 1324 630; sticky enable
+
 # Resizing containers:
 bindsym $mod+r mode "resize"
 mode "resize" {

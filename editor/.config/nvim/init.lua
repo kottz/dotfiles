@@ -455,19 +455,28 @@ end
 --  Add any additional override configuration in the following tables. They will be passed to
 --  the `settings` field of the server config. You must look up that documentation yourself.
 local servers = {
-  -- clangd = {},
-  -- gopls = {},
-  -- pyright = {},
-  -- rust_analyzer = {},
-  -- tsserver = {},
-
+  clangd = {},
+  gopls = {},
+  rust_analyzer = {
+    diagnostics = {
+      refreshSupport = false, -- Add this to fix the cancellation issue with latest version of RA
+    }
+  },
+  pyright = {},
+  typescript_language_server = {}, -- for tsserver
   lua_ls = {
     Lua = {
       workspace = { checkThirdParty = false },
       telemetry = { enable = false },
     },
   },
+  html_lsp = {},
+  prettier = {},
+  ruff = {},
+  fixjson = {},
+  golangci_lint_ls = {},
 }
+
 
 -- Setup neovim lua configuration
 require('neodev').setup()
@@ -481,6 +490,7 @@ local mason_lspconfig = require 'mason-lspconfig'
 
 mason_lspconfig.setup {
   ensure_installed = vim.tbl_keys(servers),
+  automatic_installation = true,
 }
 
 mason_lspconfig.setup_handlers {

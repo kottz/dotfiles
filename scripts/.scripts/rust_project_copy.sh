@@ -7,7 +7,7 @@ check_rust_project() {
         exit 1
     fi
 
-    if [ ! -f "src/main.rs" ] && [ ! -f "src/lib.rs" ]; then
+    if [ ! -f "src/main.rs" ] && [ ! -f "src/lib.rs" ] && [ ! -f "main.rs" ] && [ ! -f "lib.rs" ]; then
         echo "Error: Neither src/main.rs nor src/lib.rs found. This doesn't appear to be a valid Rust project." >&2
         exit 1
     fi

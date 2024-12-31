@@ -1,3 +1,7 @@
+# A TOML linter such as https://taplo.tamasfe.dev/ can use this schema to validate your config.
+# If you encounter any issues, please make an issue at https://github.com/yazi-rs/schemas.
+"$schema" = "https://yazi-rs.github.io/schemas/keymap.json"
+
 [manager]
 
 keymap = [
@@ -127,6 +131,9 @@ keymap = [
 
 	# Tabs
 	{ on = "t", run = "tab_create --current", desc = "Create a new tab with CWD" },
+
+	# Terminal
+	{ on = "T", run = "shell 'foot &>/dev/null & disown'", desc = "Open foot terminal in current directory" },
 
 	{ on = "1", run = "tab_switch 0", desc = "Switch to the first tab" },
 	{ on = "2", run = "tab_switch 1", desc = "Switch to the second tab" },

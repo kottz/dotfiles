@@ -229,6 +229,11 @@ require('lazy').setup({
 -- See `:help vim.o`
 -- NOTE: You can change these options as you wish!
 
+-- Set default indentation to 4 spaces
+vim.opt.shiftwidth = 4
+vim.opt.tabstop = 4
+vim.opt.expandtab = true
+
 -- relative linenumbers
 vim.wo.relativenumber = true
 
@@ -400,8 +405,26 @@ require('nvim-treesitter.configs').setup {
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
-
+--vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
+vim.keymap.set('n', '<leader>q', function()
+  local winnr = vim.fn.winnr('$')
+  -- Check if location list is open by trying to find its window
+  local has_loclist = false
+  for i = 1, winnr do
+    if vim.fn.getwinvar(i, '&filetype') == 'qf' then
+      has_loclist = true
+      break
+    end
+  end
+  
+  if has_loclist then
+    -- If location list is open, close it
+    vim.cmd('lclose')
+  else
+    -- If location list is closed, open it
+    vim.diagnostic.setloclist()
+  end
+end, { desc = 'Toggle diagnostics list' })
 -- [[ Configure LSP ]]
 --  This function gets run when an LSP connects to a particular buffer.
 local on_attach = function(_, bufnr)
@@ -831,7 +854,7 @@ keymap('v', '<leader>p', '"+p', opts)
 
 -- Open new file adjacent to current file
 --nnoremap <leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
-keymap('n', '<leader>e', ':vsplit <C-R>=expand("%:p:h") . "/" <CR>', opts)
+--keymap('n', '<leader>e', ':vsplit <C-R>=expand("%:p:h") . "/" <CR>', opts)
 
 
 -- No arrow keys --- force yourself to use the home row
@@ -874,7 +897,7 @@ keymap('n', '<leader>rn', '<nop>', opts)
 keymap('n', '<leader><leader>', t('<C-^>'), opts)
 -- <leader>q shows stats
 --nnoremap <leader>q g<c-g>
-keymap('n', t('<leader>q'), t('g<c-g>'), opts)
+--keymap('n', t('<leader>q'), t('g<c-g>'), opts)
 
 
 -- Keymap for replacing up to next _ or -

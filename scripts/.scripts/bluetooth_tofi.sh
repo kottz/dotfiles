@@ -1,6 +1,6 @@
 #!/bin/bash
 
-BT_HISTORY_FILE="$HOME/.config/bt_list"
+BT_HISTORY_FILE="$HOME/.local/state/bt_list"
 
 # Create history file if it doesn't exist
 touch "$BT_HISTORY_FILE"

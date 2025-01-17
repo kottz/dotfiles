@@ -135,6 +135,9 @@ keymap = [
 	# Terminal
 	{ on = "T", run = "shell 'foot &>/dev/null & disown'", desc = "Open foot terminal in current directory" },
 
+	# Dragon (Drag and drop)
+    { on = "<A-t>", run = "shell 'dragon -a -x \"$@\" &>/dev/null & sleep 0.3; swaymsg [app_id=\"dragon\"] sticky enable &>/dev/null & disown'", desc = "Open dragon with selected files for drag and drop" },
+
 	{ on = "1", run = "tab_switch 0", desc = "Switch to the first tab" },
 	{ on = "2", run = "tab_switch 1", desc = "Switch to the second tab" },
 	{ on = "3", run = "tab_switch 2", desc = "Switch to the third tab" },

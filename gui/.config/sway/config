@@ -134,6 +134,9 @@ bindsym $mod+minus scratchpad show
 # Movie mode binding - float, resize, position and make sticky the focused window
 bindsym $mod+Shift+f floating enable; resize set 576 324; move position 1324 630; sticky enable
 
+# Movie mode binding - open clipboard link in mpv and position it
+bindsym $mod+Shift+g exec mpv "$(wl-paste)" --geometry=576x324+1324+630 --ontop --no-border
+
 # Resizing containers:
 bindsym $mod+r mode "resize"
 mode "resize" {

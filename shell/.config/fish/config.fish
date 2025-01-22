@@ -5,6 +5,7 @@ end
 set -U fish_greeting
 fish_add_path $HOME/.cargo/bin
 fish_add_path $HOME/.local/bin
+fish_add_path $HOME/.fly/bin
 
 # pnpm
 set -gx PNPM_HOME $HOME/.local/share/pnpm
@@ -15,8 +16,9 @@ end
 
 # application env
 set -gx EDITOR nvim
+set -gx FLYCTL_INSTALL_DIR $HOME/.fly
 
-function cloc_git
+function cloc-git
     if test (count $argv) -eq 0
         echo "Usage: count_lines_in_repo <repository-url>"
         return 1

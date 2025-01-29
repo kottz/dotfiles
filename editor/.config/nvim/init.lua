@@ -763,7 +763,7 @@ keymap('n', '<leader>w', ':w<CR>', opts)
 
 -- ; as :
 --nnoremap ; :
-keymap('n', ';', ':', opts)
+--keymap('n', ';', ':', opts)
 -- Ctrl+j and Ctrl+k as Esc
 -- Ctrl-j is a little awkward unfortunately:
 -- https://github.com/neovim/neovim/issues/5916

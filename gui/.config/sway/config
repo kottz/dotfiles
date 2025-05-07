@@ -194,6 +194,7 @@ bindsym XF86LaunchA exec playerctl --ignore-player=chromium play-pause
 bindsym XF86Explorer exec playerctl --ignore-player=chromium next 
 
 # Screenshot bindings
+bindsym Print exec grim - | wl-copy
 bindsym $mod+Ctrl+Print exec ~/.scripts/screenshot_region.sh
 bindsym $mod+Print exec ~/.scripts/screenshot.sh
 bindsym $mod+g exec grim -g "$(slurp)" - | wl-copy

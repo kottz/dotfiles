@@ -1,18 +1,16 @@
 * {
+    font-family: "JetBrains Mono", "DejaVu Sans Mono", "Hack", "Fira Code", monospace; /* Add your preferred monospace fonts */
+    font-size: 14px; /* You might want to adjust this slightly for the monospace font */
     border: none;
     border-radius: 0;
-    /* Make sure to use a font that includes the icons you need (e.g., a Nerd Font) */
-    font-family: Noto Sans, Material Design Icons, FontAwesome, sans-serif;
-    font-size: 14px; /* Adjust to your preference */
     min-height: 0;
 }
 
 window#waybar {
-    background-color: rgba(30, 30, 40, 0.85); /* Dark semi-transparent */
-    color: #e0e0e0; /* Light grey text */
+    background-color: rgba(30, 30, 40, 0.85);
+    color: #e0e0e0;
 }
 
-/* Default styling for all modules */
 #workspaces,
 #window,
 #clock,
@@ -20,16 +18,33 @@ window#waybar {
 #network,
 #battery,
 #tray {
-    padding: 0 8px; /* Horizontal padding within each module */
-    margin: 3px 4px; /* Vertical and horizontal margin between modules */
+    padding: 0 5px;
+    margin: 3px 4px;
 }
 
 #workspaces button {
-    padding: 0 7px; /* Padding inside workspace buttons (for the numbers) */
     background-color: transparent;
-    color: #c0c0c0; /* Slightly dimmer color for non-focused workspaces */
-    border-radius: 5px; /* Slightly rounded buttons */
-    /* transition: none; */ /* Ensures no animation, or simply omit the transition line */
+    color: #c0c0c0;
+    border-radius: 5px;
+    border: 1px solid transparent; /* Add transparent border to non-focused to match focused size */
+
+    /* Centering attempt using padding: */
+    /* Font size is 14px. Border is 1px top/bottom. */
+    /* We want to add equal space above and below the text within the border. */
+    padding: 0px 0px;  /* TOP/BOTTOM: 4px, LEFT/RIGHT: 7px. */
+                       /* This will make the button content height 14px (font) + 4px (top) + 4px (bottom) = 22px. */
+                       /* Total button height including border: 22px + 1px (top_border) + 1px (bottom_border) = 24px. */
+                       /* You may need to fine-tune the vertical padding (4px) slightly (e.g., 3px or 5px) for perfect optical centering with your font. */
+
+    min-width: 28px;   /* Ensures buttons have a decent minimum width for single digits. Adjust as needed. */
+    margin: 0 0px;     /* Adds a small space between the workspace buttons themselves. Adjust or remove if not desired. */
+
+    /* Removed unsupported properties:
+       display: inline-flex;
+       align-items: center;
+       justify-content: center;
+       line-height: 1;
+    */
 }
 
 #workspaces button:hover {
@@ -38,36 +53,41 @@ window#waybar {
 }
 
 #workspaces button.focused {
-    background-color: transparent; /* No background fill for focused */
-    color: #ffffff; /* Bright white for focused text */
-    border: 1px solid #b8b8b8; /* Light grey border for the focused workspace */
-    /* padding needs to be consistent with non-focused, already handled by #workspaces button */
+    background-color: transparent;
+    color: #ffffff;
+    border: 1px solid #b8b8b8;
 }
 
 #workspaces button.urgent {
-    background-color: #eb4d4b; /* Red for urgent workspace */
+    background-color: #eb4d4b;
     color: #000000;
 }
 
-#window {
+#window { /* This is now for the centered window title */
     font-weight: normal;
-    padding-left: 12px; /* A bit more space after workspaces */
+    /* If centered, explicit padding-left might not be needed or desired */
+    /* padding-left: 12px; */
 }
 
 #clock {
     font-weight: normal;
+    padding-right: 8px;
 }
 
 #pulseaudio.muted {
-    color: #999999; /* Dimmer color for muted state */
+    color: #999999;
 }
 
 #network.disconnected {
-    color: #ff6b6b; /* Reddish color for disconnected state */
+    color: #ff6b6b;
+}
+
+#battery.charging, #battery.plugged {
+    color: #8fbcbb; /* Teal for charging */
 }
 
 #battery.critical:not(.charging) {
-    color: #ff6b6b; /* Reddish color for critical battery */
+    color: #ff6b6b;
 }
 
 #tray > .passive {

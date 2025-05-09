@@ -1,31 +1,32 @@
 {
     "layer": "top",
     "position": "top",
-    "height": 35,
-    "spacing": 0, // Use CSS for module spacing
+    "height": 32,
+    "spacing": 0,
     "margin-top": 0,
     "margin-bottom": 0,
     "margin-left": 0,
     "margin-right": 0,
 
-    "modules-left": ["sway/workspaces", "sway/window"], // As you specified
-    "modules-center": ["clock"],
-    "modules-right": ["pulseaudio", "network", "battery", "tray"],
+    // Updated module order
+    "modules-left": ["sway/workspaces"],
+    "modules-center": ["sway/window"],
+    "modules-right": ["tray", "pulseaudio", "battery", "clock"],
 
-    // NO "sway/workspaces": {} block here, as per your instruction.
-    // Waybar will use its default settings for the sway/workspaces module.
-    // For "1 2 3" to appear, your Sway workspaces must be effectively unnamed
-    // or their names must be "1", "2", "3" and Waybar's default format
-    // is picking this up, or Sway's default is to use IDs when names
-    // aren't available in a way Waybar's default format can use.
+    // sway/workspaces uses default settings by being listed above
+    // and having no specific configuration block.
 
-    "sway/window": {
-        "format": "{}", // Shows current window title (e.g., "Applications")
-        "max-length": 50
+    "sway/window": { // Moved to center
+        "format": "{}",
+        "max-length": 60 // Increased max-length a bit as it's centered
     },
-    "clock": {
-        "format": "{:%B %d, %I:%M %p}", // Format: "April 30, 10:17 AM"
+
+    "clock": { // Moved to far right, format updated
+        "format": "{:%H:%M}",                     // Default: 15:04
+        "format-alt": "{:%B %d, %H:%M}",    // On click: May 09, 15:04
         "tooltip-format": "<tt><small>{calendar}</small></tt>",
+        // The default left-click action will toggle between "format" and "format-alt"
+        // Keeping your previous calendar and scroll actions:
         "calendar": {
             "mode": "year",
             "mode-mon-col": 2,
@@ -40,31 +41,34 @@
             }
         },
         "actions":  {
-            "on-click-right": "mode",
+            "on-click-right": "mode", // This toggles calendar view mode (year/month)
             "on-click-forward": "tz_up",
             "on-click-backward": "tz_down",
             "on-scroll-up": "shift_up",
             "on-scroll-down": "shift_down"
         }
     },
+
+    "tray": { // Moved to be the first item on the right
+        "icon-size": 21,
+        "spacing": 10
+    },
+
     "pulseaudio": {
-        "format": "{icon} {volume}", // Icon then volume, e.g., " 41"
-        "format-bluetooth": "{icon} {volume}",
-        "format-muted": " Muted",
+        "format": "{icon} {volume}",
+        "format-bluetooth": "{icon} {volume}",
+        "format-muted": "",
         "format-icons": {
-            "headphone": "",
-            "hands-free": "",
-            "headset": "",
-            "phone": "",
-            "portable": "",
-            "car": "",
+            "headphone": "", "hands-free": "", "headset": "",
+            "phone": "", "portable": "", "car": "",
             "default": ["", "", ""]
         },
         "on-click": "pavucontrol"
     },
+
     "network": {
-        "format-wifi": "{icon}", // Just the Wi-Fi icon
-        "format-ethernet": "", // Just Ethernet icon
+        "format-wifi": "{icon}",
+        "format-ethernet": "",
         "format-disconnected": "⚠",
         "tooltip-format-wifi": "{essid} ({signalStrength}%) ",
         "tooltip-format-ethernet": "{ifname} ",
@@ -72,19 +76,13 @@
         "format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
         "on-click": "nm-connection-editor"
     },
-    "battery": {
-        "states": {
-            "good": 95,
-            "warning": 30,
-            "critical": 15
-        },
-        "format": "{icon}", // Just the battery icon
-        "format-charging": " {icon}",
-        "format-plugged": " {icon}",
+
+    "battery": { // Format updated for percentage and charging indication
+        "states": { "good": 95, "warning": 30, "critical": 15 },
+        "format": "{capacity}",          // e.g., "75% "
+        "format-charging": "{capacity}",     // e.g., "75% " (shows percentage and charging plug icon)
+        "format-plugged": "{capacity}",      // Same for plugged in
+        // "format-alt": "{time} {icon}", // Optional: show time to full/empty on scroll or alt click
         "format-icons": ["", "", "", "", ""]
-    },
-    "tray": {
-        "icon-size": 21,
-        "spacing": 10
     }
 }

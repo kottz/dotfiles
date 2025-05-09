@@ -1,87 +1,90 @@
 {
-    "layer": "top", // Waybar at top layer
-    // "position": "bottom", // Waybar at the bottom of your screen
-    // "height": 30, // Waybar height
-    // "width": 1920, // Waybar width
-    // Choose the order of the modules
-    "modules-left": ["sway/workspaces", "custom/spotify"],
-    "modules-center": ["sway/window"],
-    "modules-right": ["tray", "bluetooth", "custom/bluetooth_battery", "network", "battery", "pulseaudio", "clock"],
-    // Modules configuration
+    "layer": "top",
+    "position": "top",
+    "height": 35,
+    "spacing": 0, // Use CSS for module spacing
+    "margin-top": 0,
+    "margin-bottom": 0,
+    "margin-left": 0,
+    "margin-right": 0,
+
+    "modules-left": ["sway/workspaces", "sway/window"], // As you specified
+    "modules-center": ["clock"],
+    "modules-right": ["pulseaudio", "network", "battery", "tray"],
+
+    // NO "sway/workspaces": {} block here, as per your instruction.
+    // Waybar will use its default settings for the sway/workspaces module.
+    // For "1 2 3" to appear, your Sway workspaces must be effectively unnamed
+    // or their names must be "1", "2", "3" and Waybar's default format
+    // is picking this up, or Sway's default is to use IDs when names
+    // aren't available in a way Waybar's default format can use.
+
     "sway/window": {
-        "max-length": 60
+        "format": "{}", // Shows current window title (e.g., "Applications")
+        "max-length": 50
     },
     "clock": {
-        "format": "{:%H:%M}",
-        "format-alt": "{:%A, %B %d, %Y (%R)}",
+        "format": "{:%B %d, %I:%M %p}", // Format: "April 30, 10:17 AM"
         "tooltip-format": "<tt><small>{calendar}</small></tt>",
         "calendar": {
-                    "mode"          : "year",
-                    "mode-mon-col"  : 2,
-                    "weeks-pos"     : "right",
-                    "on-scroll"     : 1,
-                    "format": {
-                              "months":     "<span color='#ffead3'><b>{}</b></span>",
-                              "days":       "<span color='#ecc6d9'><b>{}</b></span>",
-                              "weeks":      "<span color='#99ffdd'><b>W{}</b></span>",
-                              "weekdays":   "<span color='#ffcc66'><b>{}</b></span>",
-                              "today":      "<span color='#ff6699'><b><u>{}</u></b></span>"
-                              }
-                    },
+            "mode": "year",
+            "mode-mon-col": 2,
+            "weeks-pos": "right",
+            "on-scroll": 1,
+            "format": {
+                "months": "<span color='#ffead3'><b>{}</b></span>",
+                "days": "<span color='#ecc6d9'><b>{}</b></span>",
+                "weeks": "<span color='#99ffdd'><b>W{}</b></span>",
+                "weekdays": "<span color='#ffcc66'><b>{}</b></span>",
+                "today": "<span color='#ff6699'><b><u>{}</u></b></span>"
+            }
+        },
         "actions":  {
-                    "on-click-right": "mode",
-                    "on-click-forward": "tz_up",
-                    "on-click-backward": "tz_down",
-                    "on-scroll-up": "shift_up",
-                    "on-scroll-down": "shift_down"
-                    }
-    },
-    "battery": {
-        "format": "{capacity}% {icon}",
-        "format-icons": ["", "", "", "", ""]
-    },
-    "network": {
-        // "interface": "wlp2s0", // (Optional) To force the use of this interface
-        "format-wifi": "{essid} ({signalStrength}%)  - {ipaddr}",
-        "format-ethernet": "{ifname}  - {ipaddr}",
-        "format-disconnected": "Disconnected ⚠"
+            "on-click-right": "mode",
+            "on-click-forward": "tz_up",
+            "on-click-backward": "tz_down",
+            "on-scroll-up": "shift_up",
+            "on-scroll-down": "shift_down"
+        }
     },
     "pulseaudio": {
-        "format": "{volume}% {icon}",
-        "format-bluetooth": "{volume}% {icon}",
-        "format-muted": "",
+        "format": "{icon} {volume}", // Icon then volume, e.g., " 41"
+        "format-bluetooth": "{icon} {volume}",
+        "format-muted": " Muted",
         "format-icons": {
-            "headphones": "",
-            "handsfree": "",
+            "headphone": "",
+            "hands-free": "",
             "headset": "",
             "phone": "",
             "portable": "",
             "car": "",
-            "default": ["", ""]
-        }
+            "default": ["", "", ""]
+        },
+        "on-click": "pavucontrol"
     },
-    "bluetooth": {
-        "format": " {status}",
-        "format-disabled": "", 
-        "format-connected": " {device_alias}",
-        "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
-        "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
-        "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}"
+    "network": {
+        "format-wifi": "{icon}", // Just the Wi-Fi icon
+        "format-ethernet": "", // Just Ethernet icon
+        "format-disconnected": "⚠",
+        "tooltip-format-wifi": "{essid} ({signalStrength}%) ",
+        "tooltip-format-ethernet": "{ifname} ",
+        "tooltip-format-disconnected": "Disconnected",
+        "format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
+        "on-click": "nm-connection-editor"
     },
-    "custom/bluetooth_battery": {
-        "format": " {}",
-        "exec": "~/.config/waybar/scripts/bluetooth_battery.sh",
-        "return-type": "json",
-        "interval": 30
+    "battery": {
+        "states": {
+            "good": 95,
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{icon}", // Just the battery icon
+        "format-charging": " {icon}",
+        "format-plugged": " {icon}",
+        "format-icons": ["", "", "", "", ""]
     },
     "tray": {
-    	"icon-size": 21,
-    	"spacing": 10
-    },
-    "custom/spotify": {
-        "format": "  {}",
-        "max-length": 40,
-        "exec": "playerctl --follow -p spotify metadata title",
-        "exec-if": "pgrep spotify"
+        "icon-size": 21,
+        "spacing": 10
     }
 }

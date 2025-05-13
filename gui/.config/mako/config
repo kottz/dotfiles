@@ -1,0 +1,65 @@
+# --- Global Settings ---
+# max-history=5
+# sort=-time
+font=JetBrains Mono 10
+default-timeout=5000
+# ignore-timeout=0
+# layer=top
+# output= # empty for focused output
+# anchor=top-right # Default, adjust if you prefer e.g. top-center
+
+# --- Style Options ---
+background-color=#242b38FF
+text-color=#a5b0c5FF
+# width=300
+# height=100
+margin=10              
+padding=8              
+border-size=2
+border-color=#5ab0f6FF 
+border-radius=5        
+
+icons=1
+max-icon-size=64
+markup=1
+# actions=1
+# history=1
+# format=<b>%s</b>\n%b # Default is good
+# text-alignment=left
+
+# --- Bindings (Defaults are usually fine, shown for completeness) ---
+# on-button-left=invoke-default-action
+# on-button-middle=exec makoctl menu -n "$id" dmenu -p 'Select action: ' # Example if you use dmenu for actions
+# on-button-right=dismiss
+# on-touch=dismiss
+# on-notify= # e.g., exec mpv /path/to/sound.oga
+
+# --- Criteria for different notification types ---
+
+# Default/Normal urgency notifications will use the global styles above.
+
+[urgency=low]
+# For low urgency, we can make it slightly dimmer or use a less prominent border
+border-color=#546178FF
+# Or inherit global styles if you prefer them to look the same as normal
+
+[urgency=normal]
+# Inherits global styles by default, no need to redefine unless changing something specific
+
+[urgency=critical]
+background-color=#242b38FF
+text-color=#ef5f6bFF
+border-color=#ef5f6bFF
+# progress-color=over #ef5f6bFF # Optionally make progress bar also red
+
+# Example: Style for notifications from a specific app
+# [app-name=Spotify]
+# background-color=#1DB954DD # Spotify green (example, adjust alpha)
+# text-color=#FFFFFFFF
+# border-color=#191414FF
+
+# Example: Style for the "hidden" placeholder when max-visible is exceeded
+# [hidden]
+# text-color=#546178FF # onedarkCool.grey
+# border-size=1
+# border-color=#2d3343FF # onedarkCool.bg1

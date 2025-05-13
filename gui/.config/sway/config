@@ -6,7 +6,7 @@ set $left h
 set $down n
 set $up e
 set $right i
-set $term foot
+set $term footclient
 set $file_browser yazi
 set $mail_reader aerc
 set $web_browser chromium --ozone-platform=wayland
@@ -207,21 +207,70 @@ exec swayidle -w \
 	before-sleep 'swaylock -f -c 000000 -i $lock_bg'
 
 # Theme
-include colorscheme
 
-# Basic color configuration using the Base16 variables for windows and borders.
-# Property Name         Border  BG      Text    Indicator Child Border
-#client.focused          $base05 $base0D $base00 $base0D $base0D
-#Trying to test the waybarcolors
-client.focused          #2C3D55 #2C3D55 $base05 #607aa1 #3f526e
-client.focused_inactive $base01 $base01 $base05 $base03 $base01
-client.unfocused        $base01 $base00 $base05 $base01 $base01
-client.urgent           $base08 $base08 $base00 $base08 $base08
-client.placeholder      $base00 $base00 $base05 $base00 $base00
-client.background       $base07
+# Theme: Onedark Cool
+# Based on Onedark theme (https://github.com/navarasu/onedark.nvim)
+
+# --- Onedark Cool Palette ---
+set $onedarkCoolBlack            #151820
+set $onedarkCoolBg0              #242b38
+set $onedarkCoolBg1              #2d3343
+set $onedarkCoolBg2              #343e4f
+set $onedarkCoolFg               #a5b0c5
+set $onedarkCoolPurple           #ca72e4
+set $onedarkCoolGreen            #97ca72
+set $onedarkCoolBlue             #5ab0f6
+set $onedarkCoolBlueGrey	 #538ab8
+set $onedarkCoolRed              #ef5f6b
+set $onedarkCoolYellow           #ebc275
+set $onedarkCoolCyan             #4dbdcb
+set $onedarkCoolGrey             #546178
+set $onedarkCoolLightGrey        #7d899f
+
+# Font
+font pango:JetBrains Mono 10
+
+# Gaps and Borders
+smart_gaps off
+smart_borders on
+
+# Window colors
+# Property Name         Border            Background        Text                   Indicator         Child_Border
+
+# Focused window:
+# Title bar background is blue. Text is $onedarkCoolBg0.
+# Child_border is now $onedarkCoolBg1, a very subtle lighter shade than the terminal BG.
+client.focused          $onedarkCoolBlueGrey  $onedarkCoolBlueGrey  $onedarkCoolBg0        $onedarkCoolBlue  $onedarkCoolGrey
+# Explanation for child_border change:
+# - Old: $onedarkCoolBg0 (blended completely with terminal background)
+# - New: $onedarkCoolBg1 (#2d3343) - This is slightly lighter than $onedarkCoolBg0 (#242b38),
+#   providing a very faint border around the content of the focused window.
+
+# Focused (inactive) window:
+# Title bar background is default dark. Text is $onedarkCoolFg.
+# Child_border remains $onedarkCoolBg0 to blend with terminal BG.
+client.focused_inactive $onedarkCoolGrey  $onedarkCoolBg0   $onedarkCoolFg         $onedarkCoolGrey  $onedarkCoolBg0
+
+# Unfocused window:
+# Title bar background is default dark. Text is $onedarkCoolFg.
+# Child_border remains $onedarkCoolBg0 to blend with terminal BG.
+client.unfocused        $onedarkCoolBg1   $onedarkCoolBg0   $onedarkCoolFg         $onedarkCoolBg1   $onedarkCoolBg0
+
+# Urgent window:
+# Title bar background is red. Text is $onedarkCoolBlack.
+# Child_border is $onedarkCoolBg0 (blends) or could be $onedarkCoolRed for more emphasis.
+client.urgent           $onedarkCoolRed   $onedarkCoolRed   $onedarkCoolBlack      $onedarkCoolRed   $onedarkCoolBg0
+
+# Placeholder window:
+client.placeholder      $onedarkCoolBg1   $onedarkCoolBg0   $onedarkCoolFg         $onedarkCoolBg1   $onedarkCoolBg0
+
+# Sway's own desktop background color
+client.background       $onedarkCoolBg0
+
 
 default_border pixel 2
 gaps inner 8
+gaps outer 0
 
 include /etc/sway/config.d/*
 

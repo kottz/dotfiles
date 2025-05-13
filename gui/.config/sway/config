@@ -240,7 +240,7 @@ smart_borders on
 # Focused window:
 # Title bar background is blue. Text is $onedarkCoolBg0.
 # Child_border is now $onedarkCoolBg1, a very subtle lighter shade than the terminal BG.
-client.focused          $onedarkCoolBlueGrey  $onedarkCoolBlueGrey  $onedarkCoolBg0        $onedarkCoolBlue  $onedarkCoolGrey
+client.focused          $onedarkCoolBg2  $onedarkCoolBg2  $onedarkCoolFg        $onedarkCoolBlue  $onedarkCoolGrey
 # Explanation for child_border change:
 # - Old: $onedarkCoolBg0 (blended completely with terminal background)
 # - New: $onedarkCoolBg1 (#2d3343) - This is slightly lighter than $onedarkCoolBg0 (#242b38),

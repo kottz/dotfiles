@@ -155,7 +155,7 @@ require('lazy').setup({
     priority = 1000,
     config = function()
       require('onedark').setup {
-        style = 'dark'
+        style = 'cool'
       }
       vim.cmd.colorscheme 'onedark'
       require('onedark').load()

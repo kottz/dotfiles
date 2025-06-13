@@ -190,10 +190,10 @@ Kickstart.diagnostic_config = function(extra_opts)
       }
     or {
       text = {
-        [vim.diagnostic.severity.ERROR] = 'E>',
-        [vim.diagnostic.severity.WARN] = 'W>',
-        [vim.diagnostic.severity.INFO] = 'I>',
-        [vim.diagnostic.severity.HINT] = 'H>',
+        [vim.diagnostic.severity.ERROR] = 'E',
+        [vim.diagnostic.severity.WARN] = 'W',
+        [vim.diagnostic.severity.INFO] = 'I',
+        [vim.diagnostic.severity.HINT] = 'H',
       },
     }
   return vim.tbl_deep_extend('force', {
@@ -201,19 +201,7 @@ Kickstart.diagnostic_config = function(extra_opts)
     float = { border = 'rounded', source = 'if_many' },
     underline = { severity = vim.diagnostic.severity.ERROR },
     signs = signs,
-    virtual_text = {
-      source = 'if_many',
-      spacing = 2,
-      format = function(diagnostic)
-        local message_map = {
-          [vim.diagnostic.severity.ERROR] = diagnostic.message,
-          [vim.diagnostic.severity.WARN] = diagnostic.message,
-          [vim.diagnostic.severity.INFO] = diagnostic.message,
-          [vim.diagnostic.severity.HINT] = diagnostic.message,
-        }
-        return message_map[diagnostic.severity]
-      end,
-    },
+    virtual_text = false,
   }, extra_opts or {})
 end
 
@@ -434,8 +422,96 @@ require('lazy').setup({
         gopls = {},
         pyright = {},
         rust_analyzer = {
-          diagnostics = {
-            refreshSupport = false,
+          settings = {
+            ['rust-analyzer'] = {
+              -- Enable persistent cache (most important for speed)
+              cachePriming = {
+                enable = true,
+                numThreads = 0, -- Use all available threads
+              },
+
+              -- Improve indexing performance
+              cargo = {
+                buildScripts = {
+                  enable = true,
+                },
+                features = 'all', -- Index all features
+                loadOutDirsFromCheck = true,
+              },
+
+              -- Optimize check configuration
+              check = {
+                command = 'clippy', -- Use clippy for better diagnostics
+                features = 'all',
+              },
+
+              -- Improve completion performance
+              completion = {
+                limit = 25, -- Limit completion items for faster response
+                postfix = {
+                  enable = false, -- Disable postfix completions for speed
+                },
+              },
+
+              -- Optimize proc macro handling
+              procMacro = {
+                enable = true,
+                ignored = {
+                  -- Add slow proc macros here if needed
+                  -- Example: leptos_macro = { "component", "server" },
+                },
+              },
+
+              -- Reduce memory usage and improve performance
+              files = {
+                excludeDirs = {
+                  '.direnv',
+                  '.git',
+                  '.github',
+                  '.gitlab',
+                  'node_modules',
+                  'target',
+                  '.vscode',
+                },
+              },
+
+              -- Optimize lens configuration
+              lens = {
+                enable = true,
+                references = {
+                  adt = { enable = false },
+                  enumVariant = { enable = false },
+                  method = { enable = false },
+                  trait = { enable = false },
+                },
+                implementations = { enable = false },
+              },
+
+              -- Improve hover performance
+              hover = {
+                actions = {
+                  references = { enable = false },
+                  implementations = { enable = false },
+                },
+              },
+
+              -- Optimize inlay hints
+              inlayHints = {
+                bindingModeHints = { enable = false },
+                chainingHints = { enable = true },
+                closingBraceHints = { enable = false },
+                closureReturnTypeHints = { enable = 'never' },
+                lifetimeElisionHints = { enable = 'never' },
+                parameterHints = { enable = false },
+                reborrowHints = { enable = 'never' },
+                renderColons = false,
+                typeHints = {
+                  enable = true,
+                  hideClosureInitialization = false,
+                  hideNamedConstructor = false,
+                },
+              },
+            },
           },
         },
         lua_ls = {

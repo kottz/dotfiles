@@ -320,7 +320,7 @@ require('lazy').setup({
         { '<leader>m', group = 'Text Object', desc = 'Change To Underscore/Dash' },
         { '<leader>e', group = 'Diagnostics', desc = 'Open floating diagnostic' },
         { '<leader>q', group = 'Diagnostics', desc = 'Toggle diagnostics list' },
-        { '<leader>f', group = 'Format', desc = '[F]ormat buffer (Conform)' }, -- From conform.nvim (Kickstart)
+        { '<leader>l', group = 'Format', desc = '[F]ormat buffer (Conform)' }, -- From conform.nvim (Kickstart)
         { '<leader>c', group = 'Colemak Window' },
         { '<leader>c', '<leader>ch', desc = 'Focus left pane', group = 'Colemak Window' },
         { '<leader>c', '<leader>ci', desc = 'Focus right pane', group = 'Colemak Window' },
@@ -371,6 +371,7 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
       vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
       vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
+      vim.keymap.set('n', '<leader>f', builtin.buffers, { desc = '[F]ind existing buffers' })
       vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
       vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
       vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
@@ -565,7 +566,7 @@ require('lazy').setup({
     cmd = { 'ConformInfo' },
     keys = {
       {
-        '<leader>f', -- Kickstart uses <leader>f
+        '<leader>l', -- Kickstart uses <leader>f
         function()
           require('conform').format { async = true, lsp_format = 'fallback' }
         end,
@@ -663,6 +664,40 @@ require('lazy').setup({
         },
       }
       vim.cmd.colorscheme 'onedark'
+    end,
+  },
+  {
+    'zbirenbaum/copilot.lua',
+    cmd = 'Copilot',
+    event = 'InsertEnter',
+    config = function()
+      require('copilot').setup {
+        panel = {
+          enabled = true,
+          auto_refresh = false,
+          keymap = { jump_prev = '[[', jump_next = ']]', accept = '<CR>', refresh = 'gr', open = '<M-CR>' },
+          layout = { position = 'bottom', ratio = 0.4 },
+        },
+        suggestion = {
+          enabled = true,
+          auto_trigger = true,
+          debounce = 75,
+          keymap = { accept = '<M-l>', accept_word = false, accept_line = false, next = '<M-]>', prev = '<M-[>', dismiss = '<C-]>' },
+        },
+        filetypes = {
+          yaml = false,
+          markdown = false,
+          help = false,
+          gitcommit = false,
+          gitrebase = false,
+          hgcommit = false,
+          svn = false,
+          cvs = false,
+          ['.'] = false,
+        },
+        copilot_node_command = 'node',
+        server_opts_overrides = {},
+      }
     end,
   },
   -- {

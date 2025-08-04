@@ -8,7 +8,7 @@ fish_add_path $HOME/.local/bin
 fish_add_path $HOME/.fly/bin
 
 # pnpm
-set -gx PNPM_HOME $HOME/.local/share/pnpm
+set -gx PNPM_HOME "/home/edward/.local/share/pnpm"
 if not string match -q -- $PNPM_HOME $PATH
   set -gx PATH "$PNPM_HOME" $PATH
 end
@@ -17,6 +17,11 @@ end
 # application env
 set -gx EDITOR nvim
 set -gx FLYCTL_INSTALL_DIR $HOME/.fly
+
+# Android env
+set -gx ANDROID_HOME $HOME/Android/Sdk
+set -gx ANDROID_NDK_ROOT $ANDROID_HOME/ndk/29.0.13113456
+set -gx PATH $PATH $ANDROID_HOME/platform-tools
 
 function cloc-git
     if test (count $argv) -eq 0
@@ -72,6 +77,8 @@ alias t='cd $(cat ~/.config/cur_dir)'
 alias ts='pwd > ~/.config/cur_dir'
 alias l='ls -lah'
 alias tl='tmux list-sessions'
+alias gdd='git -c diff.external=difft diff'
+alias onefile='uv run --directory=$HOME/dev/onefilellm --env-file=.env onefilellm.py'
 
 #this should be at the end of the file
 zoxide init fish | source

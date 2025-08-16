@@ -53,6 +53,9 @@ function fzf_cd_tmux
     end
 end
 
+# Set terminal colors
+set -gx COLORTERM truecolor
+
 # Custom Shortcuts
 bind \co fzf_cd_tmux 
 

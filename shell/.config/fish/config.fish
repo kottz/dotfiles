@@ -7,6 +7,12 @@ fish_add_path $HOME/.cargo/bin
 fish_add_path $HOME/.local/bin
 fish_add_path $HOME/.fly/bin
 
+# Emscripten
+fish_add_path $HOME/dev/emsdk
+fish_add_path $HOME/dev/emsdk/upstream/emscripten
+set -gx EMSDK $HOME/dev/emsdk
+set -gx EMSDK_NODE $HOME/dev/emsdk/node/22.16.0_64bit/bin/node
+
 # pnpm
 set -gx PNPM_HOME "/home/edward/.local/share/pnpm"
 if not string match -q -- $PNPM_HOME $PATH

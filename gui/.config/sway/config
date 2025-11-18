@@ -67,8 +67,9 @@ bindsym $mod+Shift+m exec $term -e $mail_reader
 bindsym $mod+Shift+Return exec $term -e ssh bokdev
 bindsym $mod+y exec $web_browser
 bindsym $mod+Shift+y exec $web_browser $(tofi_bookmarks)
-bindsym $mod+u exec $note_taker
+bindsym $mod+u exec $term -e $HOME/.scripts/window_switcher.sh
 bindsym $mod+Shift+u exec mullvad status | grep -q "Connected" && mullvad disconnect || mullvad connect
+bindsym $mod+o exec chromium --app=https://chat.openai.com/
 
 # Moving around:
 bindsym $mod+$left focus left

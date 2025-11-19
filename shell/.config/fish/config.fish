@@ -91,3 +91,7 @@ alias onefile='uv run --directory=$HOME/dev/onefilellm --env-file=.env onefilell
 
 #this should be at the end of the file
 zoxide init fish | source
+
+# bun
+set --export BUN_INSTALL "$HOME/.bun"
+set --export PATH $BUN_INSTALL/bin $PATH

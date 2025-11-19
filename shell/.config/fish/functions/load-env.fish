@@ -1,8 +1,13 @@
-function load-env --description "Loads environment variables from a specified .env file (supports .gpg)"
+function load-env --description "Loads environment variables from a specified .env file (supports .gpg). Use -c to copy content."
+    # Parse arguments looking for -c or --copy
+    argparse 'c/copy' -- $argv
+    or return 1
+
     if test -z "$argv[1]"
-        echo "Usage: load-env <path/to/env_file>" >&2
+        echo "Usage: load-env [-c|--copy] <path/to/env_file>" >&2
         return 1
     end
+
     set -l env_file "$argv[1]"
 
     if not test -f "$env_file"
@@ -10,6 +15,26 @@ function load-env --description "Loads environment variables from a specified .e
         return 1
     end
 
+    # --- Copy Mode (-c) ---
+    if set -q _flag_copy
+        if string match -q '*.gpg' -- "$env_file"
+            # Decrypt and copy to clipboard
+            if gpg --decrypt --batch --quiet --yes -- "$env_file" | wl-copy
+                echo "Decrypted content of '$env_file' copied to clipboard."
+                return 0
+            else
+                echo "Error: GPG decryption failed for '$env_file'." >&2
+                return 1
+            end
+        else
+            # Plain text copy
+            wl-copy < "$env_file"
+            echo "Content of '$env_file' copied to clipboard."
+            return 0
+        end
+    end
+
+    # --- Load Mode (Default) ---
     echo "Loading environment variables from '$env_file'..."
     set -g lines_loaded 0
     set -l lineno 0
@@ -70,7 +95,7 @@ function load-env --description "Loads environment variables from a specified .e
         set -g lines_loaded (math $lines_loaded + 1)
     end
 
-    # --- Plain vs. gpg-decrypted ---
+    # --- Plain vs. gpg-decrypted loading ---
     if string match -q '*.gpg' -- "$env_file"
         gpg --decrypt --batch --quiet --yes -- "$env_file" | while read -l line
             set lineno (math $lineno + 1)

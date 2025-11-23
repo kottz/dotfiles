@@ -21,7 +21,7 @@ mapfile -t windows < <(
 
 # Show only the second column (human-readable)
 choice=$(printf "%s\n" "${windows[@]#*$'\t'}" | \
-    fzf --prompt="Window> ")
+    fzf --reverse --prompt="Window> ")
 
 # Find the matching ID
 id=$(printf "%s\n" "${windows[@]}" | \

@@ -800,6 +800,13 @@ require('lazy').setup({
       -- Kickstart mentions incremental selection is included, but doesn't set specific keymaps in its opts.
     },
   },
+  {
+    'windwp/nvim-autopairs',
+    event = 'InsertEnter',
+    config = function()
+      require('nvim-autopairs').setup {}
+    end,
+  },
   -- Removed commented out 'windwp/nvim-ts-autotag' as it's not in original Kickstart
   -- require 'kickstart.plugins.debug',
   -- require 'kickstart.plugins.indent_line',

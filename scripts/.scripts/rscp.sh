@@ -119,8 +119,25 @@ process_c_project() {
 # --- Main Script ---
 
 main() {
-    local source_dir=${1:-src}
-    check_wl_copy
+    local source_dir="src"
+    local output_nvim=false
+
+    # Parse arguments
+    for arg in "$@"; do
+        case "$arg" in
+            --output-nvim)
+                output_nvim=true
+                ;;
+            *)
+                source_dir="$arg"
+                ;;
+        esac
+    done
+
+    if [ "$output_nvim" = false ]; then
+        check_wl_copy
+    fi
+
     temp_file=$(mktemp)
     trap 'rm -f "$temp_file"' EXIT
     local project_type_processed=""
@@ -143,9 +160,12 @@ main() {
         echo "Warning: No files were collected for the $project_type_processed project. Clipboard will be empty." >&2
     fi
 
-    wl-copy < "$temp_file"
-
-    echo "$project_type_processed project contents copied to clipboard successfully!" >&2
+    if [ "$output_nvim" = true ]; then
+        nvim "$temp_file"
+    else
+        wl-copy < "$temp_file"
+        echo "$project_type_processed project contents copied to clipboard successfully!" >&2
+    fi
 }
 
 main "$@"

@@ -66,10 +66,10 @@ bindsym $mod+m exec $term -e $file_browser
 bindsym $mod+Shift+m exec $term -e $mail_reader
 bindsym $mod+Shift+Return exec $term -e ssh bokdev
 bindsym $mod+y exec $web_browser
-bindsym $mod+Shift+y exec $web_browser $(tofi_bookmarks)
 bindsym $mod+u exec $term -F -e $HOME/.scripts/window_switcher.sh
 bindsym $mod+Shift+u exec mullvad status | grep -q "Connected" && mullvad disconnect || mullvad connect
 bindsym $mod+o exec chromium --app=https://chat.openai.com/
+bindsym $mod+Shift+o exec chromium --app=https://aistudio.google.com/
 
 # Moving around:
 bindsym $mod+$left focus left
@@ -130,7 +130,7 @@ bindsym $mod+w layout tabbed
 bindsym $mod+p layout toggle split
 bindsym $mod+f fullscreen
 bindsym $mod+Shift+space floating toggle
-bindsym $mod+Shift+o sticky toggle
+bindsym $mod+Shift+y sticky toggle
 bindsym $mod+space focus mode_toggle
 bindsym $mod+a focus parent
 

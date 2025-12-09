@@ -249,12 +249,12 @@ vim.keymap.set('', '<C-w>I', '<C-w>L', { desc = 'Move window right (Colemak <C-w
 vim.keymap.set('', '<C-w>k', '<C-w>n', { desc = 'New window with k (Qwerty <C-w>k -> Vim <C-w>n)' })
 -- Note: Kickstart maps <C-k> to <C-w><C-k> for focus. This custom map for <C-w>k is different.
 
-vim.keymap.set('n', '<C-i>', '<C-PageDown>', { desc = 'Next tab (Colemak C-i)' }) -- This is Ctrl + Colemak 'i'
+--vim.keymap.set('n', '<C-i>', '<C-PageDown>', { desc = 'Next tab (Colemak C-i)' }) -- This is Ctrl + Colemak 'i'
 
 vim.keymap.set('n', 'gH', 'g;', { desc = 'Colemak: Previous in changelist (gH)' })
 vim.keymap.set('n', 'gI', 'g,', { desc = 'Colemak: Next in changelist (gI)' })
 vim.keymap.set('n', 'gh', '<C-o>', { desc = 'Colemak: Older cursor position (gh)' })
-vim.keymap.set('n', 'gi', '<C-i>', { desc = 'Colemak: Newer cursor position (gi)' }) -- Note: Vim's <C-i> for jump forward
+--vim.keymap.set('n', 'gi', '<C-i>', { desc = 'Colemak: Newer cursor position (gi)' }) -- Note: Vim's <C-i> for jump forward
 
 vim.keymap.set('n', 'zn', '<C-y>', { desc = 'Scroll up (Colemak zn)' })
 vim.keymap.set('n', 'ze', '<C-e>', { desc = 'Scroll down (Colemak ze)' })

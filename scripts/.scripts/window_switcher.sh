@@ -19,13 +19,16 @@ mapfile -t windows < <(
 
 [ ${#windows[@]} -eq 0 ] && exit 0
 
-# Show only the second column (human-readable)
-choice=$(printf "%s\n" "${windows[@]#*$'\t'}" | \
-    fzf --reverse --prompt="Window> ")
+# 1. Pass the FULL list to fzf
+# 2. -d $'\t' tells fzf to split by tabs
+# 3. --with-nth 2.. tells fzf to only display the 2nd field onwards (hiding the ID)
+choice=$(printf "%s\n" "${windows[@]}" | \
+    fzf --reverse --prompt="Window> " -d $'\t' --with-nth 2..)
 
-# Find the matching ID
-id=$(printf "%s\n" "${windows[@]}" | \
-    grep -F "$choice" | \
-    cut -f1)
+# If user cancels, exit
+[ -z "$choice" ] && exit 0
+
+# Extract the ID directly from the chosen line (field 1)
+id=$(echo "$choice" | cut -f1)
 
 [ -n "$id" ] && swaymsg "[con_id=$id]" focus

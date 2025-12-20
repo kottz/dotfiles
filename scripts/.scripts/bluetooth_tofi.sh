@@ -8,8 +8,8 @@ touch "$BT_HISTORY_FILE"
 
 # --- DISCONNECT LOGIC ---
 
-# Find the first "connected" device from bluetoothctl
-connected_device_line=$(bluetoothctl devices Connected | grep "^Device " | head -n 1)
+# Find the first "connected" device from bluetoothctl^
+connected_device_line=$(bluetoothctl devices Connected | sed 's/\x1b\[[0-9;]*m//g' | grep "^Device " | head -n 1)
 
 if [ -n "$connected_device_line" ]; then
     connected_mac=$(echo "$connected_device_line" | awk '{print $2}')
@@ -37,7 +37,7 @@ if [ "$power_state" != "yes" ]; then
 fi
 
 # Get list of known devices
-device_list=$(bluetoothctl devices | grep "^Device ")
+device_list=$(bluetoothctl devices | sed 's/\x1b\[[0-9;]*m//g' | grep "^Device ")
 
 declare -A device_map
 while IFS= read -r line; do

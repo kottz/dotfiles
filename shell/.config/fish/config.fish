@@ -2,7 +2,7 @@ if status is-interactive
     # Commands to run in interactive sessions can go here
 end
 
-set -U fish_greeting
+set -g fish_greeting
 fish_add_path $HOME/.cargo/bin
 fish_add_path $HOME/.local/bin
 fish_add_path $HOME/.fly/bin
@@ -15,9 +15,7 @@ set -gx EMSDK_NODE $HOME/dev/emsdk/node/22.16.0_64bit/bin/node
 
 # pnpm
 set -gx PNPM_HOME "/home/edward/.local/share/pnpm"
-if not string match -q -- $PNPM_HOME $PATH
-  set -gx PATH "$PNPM_HOME" $PATH
-end
+fish_add_path /home/edward/.local/share/pnpm
 # pnpm end
 
 # application env
@@ -44,12 +42,32 @@ function cloc-git
 end
 
 # Fuzzy find a folder, if there is a tmux session in folder, attach to it,
-# otherwise create a new session with the folder as the working directory
+# otherwise create a new session with the folder as the working directory.
+# Also surfaces agent-layout repos under ~/dev/gamedev: each project container
+# has {main,wt/<name>} and we expose those directly.
 function fzf_cd_tmux
-    set selected_dir (fd --max-depth 2 --type directory --full-path . $HOME | fzf)
+    set gamedev $HOME/dev/gamedev
+
+    set all_dirs (
+        fd --max-depth 2 --type d . $HOME
+        if test -d $gamedev
+            # main checkouts: e.g. ~/dev/gamedev/games/mulle/bilar/main
+            fd --type d --glob main $gamedev
+            # worktrees: dirs that sit directly inside a wt/ folder
+            fd --type d -p '.*/wt/[^/]+$' $gamedev
+        end
+    )
+
+    set selected_dir (printf '%s\n' $all_dirs | sort -u | fzf)
 
     if test -n "$selected_dir"
-        set session_name (basename "$selected_dir")
+        # For dirs named "main" use the project container name as session,
+        # so bilar/main → "bilar" rather than colliding "main" for every project.
+        if test (basename "$selected_dir") = main
+            set session_name (basename (dirname "$selected_dir"))
+        else
+            set session_name (basename "$selected_dir")
+        end
 
         if tmux has-session -t $session_name 2>/dev/null
             tmux attach -t $session_name
@@ -88,9 +106,7 @@ alias l='ls -lah'
 alias tl='tmux list-sessions'
 alias gdd='git -c diff.external=difft diff'
 alias onefile='uv run --directory=$HOME/dev/onefilellm --env-file=.env onefilellm.py'
-
-#this should be at the end of the file
-zoxide init fish | source
+alias ekman="EKMAN__API_HOST=https://ekman.kallstedt.se ~/dev/ekman/target/release/ekman"
 
 # bun
 set --export BUN_INSTALL "$HOME/.bun"

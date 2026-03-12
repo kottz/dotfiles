@@ -65,6 +65,7 @@ function __git.init
   __git.create_abbr gdw        git diff --word-diff
   __git.create_abbr gdwc       git diff --word-diff --cached
   __git.create_abbr gdto       git difftool
+  __git.create_abbr gdg        git diff --no-ext-diff
   __git.create_abbr gignore    git update-index --assume-unchanged
   __git.create_abbr gf         git fetch
   __git.create_abbr gfa        git fetch --all --prune
@@ -84,6 +85,7 @@ function __git.init
   __git.create_abbr glod       git log --oneline --decorate --color develop..
   __git.create_abbr gloo       "git log --pretty=format:'%C(yellow)%h %Cred%ad %Cblue%an%Cgreen%d %Creset%s' --date=short"
   __git.create_abbr gm         git merge
+  __git.create_abbr gma        git merge --abort
   __git.create_abbr gmt        git mergetool --no-prompt
   __git.create_abbr gmom       git merge origin/\(__git.default_branch\)
   __git.create_abbr gp         git push
@@ -132,6 +134,7 @@ function __git.init
   __git.create_abbr gsh        git show
   __git.create_abbr gsd        git svn dcommit
   __git.create_abbr gsr        git svn rebase
+  __git.create_abbr gsb        git status -sb
   __git.create_abbr gss        git status -s
   __git.create_abbr gst        git status
   __git.create_abbr gsta       git stash

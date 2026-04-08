@@ -756,23 +756,6 @@ require('lazy').setup({
           highlight = 'gzh', -- Default 'sh'
           replace = 'gzr', -- Default 'sr'
           update_n_lines = 'gzn', -- Default 'sn', or false if you don't use it
-
-          -- Next/previous actions: Remap or disable (set to false)
-          -- If you don't use "find next surrounding" etc., set to false.
-          -- Otherwise, remap them like 'gzan', 'gzal', etc.
-          add_next = false, -- 'gzan',    -- Default 'san'
-          delete_next = false, -- 'gzdn',    -- Default 'sdn'
-          find_next = false, -- 'gzfn',    -- Default 'sfn'
-          find_left_next = false, -- 'gzFn',    -- Default 'sFn'
-          highlight_next = false, -- 'gzhn',    -- Default 'shn'
-          replace_next = false, -- 'gzrn',    -- Default 'srn'
-
-          add_previous = false, -- 'gzal',    -- Default 'sal'
-          delete_previous = false, -- 'gzdl',    -- Default 'sdl'
-          find_previous = false, -- 'gzfl',    -- Default 'sfl'
-          find_left_previous = false, -- 'gzFl',    -- Default 'sFl'
-          highlight_previous = false, -- 'gzhl',    -- Default 'shl'
-          replace_previous = false, -- 'gzrl',    -- Default 'srl'
         },
       }
 

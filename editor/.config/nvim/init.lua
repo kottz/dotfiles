@@ -1,6 +1,11 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.softtabstop = 4
+vim.opt.expandtab = true
+
 vim.g.mason_lspconfig_automatic_server_setup = false
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = false
@@ -285,7 +290,12 @@ rtp:prepend(lazypath)
 
 -- [[ Configure and install plugins ]]
 require('lazy').setup({
-  'NMAC427/guess-indent.nvim',
+  {
+    'NMAC427/guess-indent.nvim',
+    opts = {
+      filetype_exclude = { 'c', 'cpp', 'objc', 'objcpp' },
+    },
+  },
   {
     'lewis6991/gitsigns.nvim',
     opts = {
@@ -756,6 +766,23 @@ require('lazy').setup({
           highlight = 'gzh', -- Default 'sh'
           replace = 'gzr', -- Default 'sr'
           update_n_lines = 'gzn', -- Default 'sn', or false if you don't use it
+
+          -- Next/previous actions: Remap or disable (set to false)
+          -- If you don't use "find next surrounding" etc., set to false.
+          -- Otherwise, remap them like 'gzan', 'gzal', etc.
+          add_next = '', -- Default 'san'
+          delete_next = '', -- Default 'sdn'
+          find_next = '', -- Default 'sfn'
+          find_left_next = '', -- Default 'sFn'
+          highlight_next = '', -- Default 'shn'
+          replace_next = '', -- Default 'srn'
+
+          add_previous = '', -- Default 'sal'
+          delete_previous = '', -- Default 'sdl'
+          find_previous = '', -- Default 'sfl'
+          find_left_previous = '', -- Default 'sFl'
+          highlight_previous = '', -- Default 'shl'
+          replace_previous = '', -- Default 'srl'
         },
       }
 
@@ -790,12 +817,19 @@ require('lazy').setup({
       require('nvim-autopairs').setup {}
     end,
   },
+  -- {
+  --   'OXY2DEV/markview.nvim',
+  --   lazy = false,
+  --
+  --   -- Completion for `blink.cmp`
+  --   dependencies = { 'saghen/blink.cmp' },
+  -- },
   {
-    'OXY2DEV/markview.nvim',
-    lazy = false,
-
-    -- Completion for `blink.cmp`
-    dependencies = { 'saghen/blink.cmp' },
+    dir = '~/dumpdump/claude-code.nvim/agent-cli.nvim', -- Replace with your actual local path
+    name = 'agent-cli', -- Optional: gives it a specific name in the Lazy UI
+    config = function()
+      require('agent-cli').setup {}
+    end,
   },
   -- Removed commented out 'windwp/nvim-ts-autotag' as it's not in original Kickstart
   -- require 'kickstart.plugins.debug',

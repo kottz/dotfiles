@@ -111,3 +111,6 @@ alias ekman="EKMAN__API_HOST=https://ekman.kallstedt.se ~/dev/ekman/target/relea
 # bun
 set --export BUN_INSTALL "$HOME/.bun"
 set --export PATH $BUN_INSTALL/bin $PATH
+
+#this should be at the end of the file
+zoxide init fish | source

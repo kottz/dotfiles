@@ -63,7 +63,7 @@ bindsym $mod+Shift+c reload
 bindsym $mod+Shift+b exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
 bindsym $mod+l exec swaylock -i $lock_bg
 bindsym $mod+Shift+l exec wlogout
-
+bindsym $mod+grave exec sh -c 'ws="$(swaymsg -t get_workspaces | jq -r "[ .[] | select(.num == -1) ] as \$named | if (\$named | length) == 0 then empty else (\$named | map(.focused) | index(true)) as \$i | if \$i == null then \$named[0].name else \$named[(\$i + 1) % (\$named | length)].name end end")"; [ -n "$ws" ] && swaymsg workspace "$ws"'
 
 # Application shortcuts
 bindsym $mod+m exec $term -e $file_browser
@@ -183,6 +183,9 @@ for_window [class="^steam$"] floating enable
 # for_window [class="^Steam$" title="^Steam Guard - Computer Authorization Required$"] floating enable
 # for_window [title="^Steam Keyboard$"] floating enable
 
+# Prevent screensaver when playing with gamepad
+for_window [class="steam_app*"] inhibit_idle focus
+
 # Status Bar configuration
 bar {
 	position top
@@ -197,6 +200,9 @@ bindsym XF86AudioMicMute exec amixer set Capture toggle
 
 # Bluetooth controls
 bindsym $mod+Shift+v exec ~/.scripts/bluetooth_tofi.sh
+
+# Start twitch stream
+bindsym $mod+Shift+t exec ~/.scripts/twitch-streamlink.sh
 
 # LLM Prompt library
 bindsym $mod+Shift+p exec ~/.scripts/prompt-lib.sh

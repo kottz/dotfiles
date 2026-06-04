@@ -112,5 +112,8 @@ alias ekman="EKMAN__API_HOST=https://ekman.kallstedt.se ~/dev/ekman/target/relea
 set --export BUN_INSTALL "$HOME/.bun"
 set --export PATH $BUN_INSTALL/bin $PATH
 
+# opencode
+fish_add_path /home/edward/.opencode/bin
+
 #this should be at the end of the file
 zoxide init fish | source

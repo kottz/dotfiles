@@ -1,0 +1,15 @@
+input "9354:33575:Telink_Wireless_Receiver" {
+    xkb_layout us,us
+    xkb_variant colemak,
+    xkb_options grp:alt_space_toggle
+}
+
+input "12951:18804:ZSA_Technology_Labs_Inc_ErgoDox_EZ_Keyboard" {
+    xkb_layout se,us
+    xkb_options grp:alt_space_toggle,ctrl:nocaps
+}
+
+input "12951:18804:ZSA_Technology_Labs_Inc_ErgoDox_EZ" {
+    xkb_layout se,us
+    xkb_options grp:alt_space_toggle,ctrl:nocaps
+}

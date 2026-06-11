@@ -20,39 +20,9 @@ output * bg ./wallpaper fill
 include monitor
 
 ### Input configuration
-input "2:7:SynPS/2_Synaptics_TouchPad" {
-    dwt enabled
-    tap enabled
-    natural_scroll enabled
-    middle_emulation enabled
-}
-input "1739:52839:SYNA8018:00_06CB:CE67_Touchpad" {
-    dwt enabled
-    tap enabled
-    natural_scroll enabled
-}
-input "2:10:TPPS/2_Elan_TrackPoint" {
-    dwt enabled
-}
-input "1:1:AT_Translated_Set_2_keyboard" {
-    xkb_layout us,us
-    xkb_variant colemak,
-    xkb_options grp:alt_space_toggle
-}
-input "1133:49934:Logitech_HID_compliant_keyboard_System_Control" {
-    xkb_layout us,us
-    xkb_variant colemak,
-    xkb_options grp:alt_space_toggle
-}
-input "12951:18804:ZSA_Technology_Labs_Inc_ErgoDox_EZ_Keyboard" {
-    xkb_layout se,us
-    xkb_options grp:alt_space_toggle,ctrl:nocaps
-}
-
-input "12951:18804:ZSA_Technology_Labs_Inc_ErgoDox_EZ" {
-    xkb_layout se,us
-    xkb_options grp:alt_space_toggle,ctrl:nocaps
-}
+# Choose this machine's tracked input profile after cloning, for example:
+# ln -sfn gran ~/.config/sway/input-profiles/host
+include input-profiles/host
 
 ### Key bindings
 bindsym $mod+Return exec $term

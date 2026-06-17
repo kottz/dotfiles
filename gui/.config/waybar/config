@@ -9,12 +9,22 @@
     "margin-right": 0,
 
     // Updated module order
-    "modules-left": ["sway/workspaces"],
+    "modules-left": ["sway/workspace-group", "sway/workspaces"],
     "modules-center": ["sway/window"],
     "modules-right": ["tray", "pulseaudio", "battery", "clock"],
 
-    // sway/workspaces uses default settings by being listed above
-    // and having no specific configuration block.
+    "sway/workspace-group": {
+        "format": "{short_name}",
+        "on-click": "toggle",
+        "cursor": false,
+        "tooltip": false
+    },
+
+    "sway/workspaces": {
+        "workspace-groups": true,
+        "show-active-group-only": true,
+        "format": "{display_name}"
+    },
 
     "sway/window": { // Moved to center
         "format": "{}",

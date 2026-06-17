@@ -24,6 +24,10 @@ include monitor
 # ln -sfn gran ~/.config/sway/input-profiles/host
 include input-profiles/host
 
+### Workspace groups
+workspace_groups personal work
+workspace_group_default personal
+
 ### Key bindings
 bindsym $mod+Return exec $term
 bindsym $mod+Shift+q kill
@@ -33,7 +37,7 @@ bindsym $mod+Shift+c reload
 bindsym $mod+Shift+b exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
 bindsym $mod+l exec swaylock -i $lock_bg
 bindsym $mod+Shift+l exec wlogout
-bindsym $mod+grave exec sh -c 'ws="$(swaymsg -t get_workspaces | jq -r "[ .[] | select(.num == -1) ] as \$named | if (\$named | length) == 0 then empty else (\$named | map(.focused) | index(true)) as \$i | if \$i == null then \$named[0].name else \$named[(\$i + 1) % (\$named | length)].name end end")"; [ -n "$ws" ] && swaymsg workspace "$ws"'
+bindsym $mod+grave workspace group toggle
 
 # Application shortcuts
 bindsym $mod+m exec $term -e $file_browser
@@ -69,30 +73,30 @@ bindsym $mod+Shift+Right move right
 
 
 # Workspaces:
-bindsym $mod+1 workspace 1
-bindsym $mod+2 workspace 2
-bindsym $mod+3 workspace 3
-bindsym $mod+4 workspace 4
-bindsym $mod+5 workspace 5
-bindsym $mod+6 workspace 6
-bindsym $mod+7 workspace 7
-bindsym $mod+8 workspace 8
-bindsym $mod+9 workspace 9
-bindsym $mod+0 workspace 10
+bindsym $mod+1 workspace number 1
+bindsym $mod+2 workspace number 2
+bindsym $mod+3 workspace number 3
+bindsym $mod+4 workspace number 4
+bindsym $mod+5 workspace number 5
+bindsym $mod+6 workspace number 6
+bindsym $mod+7 workspace number 7
+bindsym $mod+8 workspace number 8
+bindsym $mod+9 workspace number 9
+bindsym $mod+0 workspace number 10
 # bindsym $mod+minus workspace 11
 # bindsym $mod+equal workspace 12
 
 # move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace 1
-bindsym $mod+Shift+2 move container to workspace 2
-bindsym $mod+Shift+3 move container to workspace 3
-bindsym $mod+Shift+4 move container to workspace 4
-bindsym $mod+Shift+5 move container to workspace 5
-bindsym $mod+Shift+6 move container to workspace 6
-bindsym $mod+Shift+7 move container to workspace 7
-bindsym $mod+Shift+8 move container to workspace 8
-bindsym $mod+Shift+9 move container to workspace 9
-bindsym $mod+Shift+0 move container to workspace 10
+bindsym $mod+Shift+1 move container to workspace number 1
+bindsym $mod+Shift+2 move container to workspace number 2
+bindsym $mod+Shift+3 move container to workspace number 3
+bindsym $mod+Shift+4 move container to workspace number 4
+bindsym $mod+Shift+5 move container to workspace number 5
+bindsym $mod+Shift+6 move container to workspace number 6
+bindsym $mod+Shift+7 move container to workspace number 7
+bindsym $mod+Shift+8 move container to workspace number 8
+bindsym $mod+Shift+9 move container to workspace number 9
+bindsym $mod+Shift+0 move container to workspace number 10
 # bindsym $mod+Shift+minus move container to workspace 11
 # bindsym $mod+Shift+equal move container to workspace 12
 
@@ -261,6 +265,13 @@ client.placeholder      $onedarkCoolBg1   $onedarkCoolBg0   $onedarkCoolFg      
 # Sway's own desktop background color
 client.background       $onedarkCoolBg0
 
+
+bindsym $mod+Pause mode "passthrough"
+
+mode "passthrough" {
+    bindsym $mod+Pause mode "default"
+    bindsym Escape mode "default"
+}
 
 default_border pixel 2
 gaps inner 8

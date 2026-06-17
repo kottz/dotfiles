@@ -12,6 +12,7 @@ window#waybar {
 }
 
 #workspaces,
+#workspace-group,
 #window,
 #clock,
 #pulseaudio,
@@ -20,6 +21,18 @@ window#waybar {
 #tray {
     padding: 0 5px;
     margin: 3px 4px;
+}
+
+#workspace-group {
+    min-width: 14px;
+    padding: 0 4px;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+#workspace-group.urgent {
+    background-color: #eb4d4b;
+    color: #000000;
 }
 
 #workspaces button {

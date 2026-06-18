@@ -6,7 +6,6 @@ vim.opt.shiftwidth = 4
 vim.opt.softtabstop = 4
 vim.opt.expandtab = true
 
-vim.g.mason_lspconfig_automatic_server_setup = false
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = false
 
@@ -149,8 +148,12 @@ vim.keymap.set('n', '<C-h>', '<cmd>nohlsearch<CR>', { desc = 'Clear Search Highl
 vim.keymap.set('v', '<C-h>', '<cmd>nohlsearch<CR>', { desc = 'Clear Search Highlight' })
 
 -- Diagnostic keymaps (from old config)
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
+vim.keymap.set('n', '[d', function()
+  vim.diagnostic.jump { count = -1, float = true }
+end, { desc = 'Go to previous diagnostic message' })
+vim.keymap.set('n', ']d', function()
+  vim.diagnostic.jump { count = 1, float = true }
+end, { desc = 'Go to next diagnostic message' })
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 
 -- Toggle diagnostic list (from old config, overrides Kickstart's <leader>q if it existed)
@@ -351,30 +354,29 @@ require('lazy').setup({
         { '<leader>t', group = '[T]oggle' }, -- Kickstart default (for inlay hints)
         { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } }, -- Kickstart default
         -- Your custom leader mappings for which-key
-        { '<leader>w', group = 'File', desc = 'Save file' },
-        { '<leader>y', group = 'Clipboard', desc = 'Yank to system clipboard' },
-        { '<leader>p', group = 'Clipboard', desc = 'Paste from system clipboard' },
-        { '<leader>m', group = 'Text Object', desc = 'Change To Underscore/Dash' },
-        { '<leader>e', group = 'Diagnostics', desc = 'Open floating diagnostic' },
-        { '<leader>q', group = 'Diagnostics', desc = 'Toggle diagnostics list' },
-        { '<leader>l', group = 'Format', desc = '[F]ormat buffer (Conform)' }, -- From conform.nvim (Kickstart)
-        { '<leader>c', group = 'Colemak Window' },
-        { '<leader>c', '<leader>ch', desc = 'Focus left pane', group = 'Colemak Window' },
-        { '<leader>c', '<leader>ci', desc = 'Focus right pane', group = 'Colemak Window' },
-        { '<leader>c', '<leader>cn', desc = 'Focus down pane', group = 'Colemak Window' },
-        { '<leader>c', '<leader>ce', desc = 'Focus up pane', group = 'Colemak Window' },
-        { '<leader>c', '<leader>cH', desc = 'Move window left', group = 'Colemak Window' },
-        { '<leader>c', '<leader>cI', desc = 'Move window right', group = 'Colemak Window' },
-        { '<leader>c', '<leader>cN', desc = 'Move window down', group = 'Colemak Window' },
-        { '<leader>c', '<leader>cE', desc = 'Move window up', group = 'Colemak Window' },
+        { '<leader>w', group = 'File/Workspace' },
+        { '<leader>y', group = 'Clipboard' },
+        { '<leader>p', group = 'Clipboard' },
+        { '<leader>m', group = 'Text Object' },
+        { '<leader>e', group = 'Diagnostics' },
+        { '<leader>q', group = 'Diagnostics' },
+        { '<leader>l', group = 'Format' }, -- From conform.nvim (Kickstart)
+        { '<leader>c', group = 'Code/Colemak Window' },
+        { '<leader>ch', desc = 'Focus left pane' },
+        { '<leader>ci', desc = 'Focus right pane' },
+        { '<leader>cn', desc = 'Focus down pane' },
+        { '<leader>ce', desc = 'Focus up pane' },
+        { '<leader>cH', desc = 'Move window left' },
+        { '<leader>cI', desc = 'Move window right' },
+        { '<leader>cN', desc = 'Move window down' },
+        { '<leader>cE', desc = 'Move window up' },
+        { '<leader>ca', desc = '[C]ode [A]ction (LSP)' },
         { '<leader>r', group = 'LSP Rename/Workspace' },
-        { '<leader>r', '<leader>rn', desc = '[R]e[n]ame (LSP)', group = 'LSP Rename/Workspace' },
-        { '<leader>w', '<leader>wa', desc = '[W]orkspace [A]dd Folder (LSP)', group = 'LSP Rename/Workspace' },
-        { '<leader>w', '<leader>wr', desc = '[W]orkspace [R]emove Folder (LSP)', group = 'LSP Rename/Workspace' },
-        { '<leader>w', '<leader>wl', desc = '[W]orkspace [L]ist Folders (LSP)', group = 'LSP Rename/Workspace' },
-        { '<leader>d', desc = '[D]ocument [S]ymbols (LSP Telescope)', group = 'LSP Search' }, -- for <leader>ds
-        { '<leader>D', desc = 'Type [D]efinition (LSP)', group = 'LSP Go To' },
-        { '<leader>c', '<leader>ca', desc = '[C]ode [A]ction (LSP)', group = 'LSP Actions' },
+        { '<leader>rn', desc = '[R]e[n]ame (LSP)' },
+        { '<leader>wa', desc = '[W]orkspace [A]dd Folder (LSP)' },
+        { '<leader>wr', desc = '[W]orkspace [R]emove Folder (LSP)' },
+        { '<leader>wl', desc = '[W]orkspace [L]ist Folders (LSP)' },
+        { '<leader>ds', desc = '[D]ocument [S]ymbols (LSP Telescope)' },
       },
     },
   },
@@ -567,6 +569,11 @@ require('lazy').setup({
       capabilities.general.positionEncodings = { 'utf-16' } -- From your old config
 
       local servers = {
+        bashls = {},
+        eslint = {},
+        gopls = {},
+        html = {},
+        jsonls = {},
         lua_ls = {
           settings = {
             Lua = {
@@ -576,24 +583,31 @@ require('lazy').setup({
             },
           },
         },
+        ruff = {},
+        rust_analyzer = {},
+        ty = {},
+        ts_ls = {},
       }
 
-      local ensure_installed = vim.tbl_keys(servers or {})
-      vim.list_extend(ensure_installed, {
+      local server_names = vim.tbl_keys(servers or {})
+      local tools = {
+        'goimports',
+        'gofumpt',
+        'prettier',
+        'prettierd',
+        'shfmt',
         'stylua',
-      })
-      require('mason-tool-installer').setup { ensure_installed = ensure_installed }
+      }
+      require('mason-tool-installer').setup { ensure_installed = tools }
+
+      for server_name, server in pairs(servers) do
+        server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
+        vim.lsp.config(server_name, server)
+      end
 
       require('mason-lspconfig').setup {
-        ensure_installed = {},
-        automatic_installation = false,
-        handlers = {
-          function(server_name)
-            local server = servers[server_name] or {}
-            server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-            require('lspconfig')[server_name].setup(server)
-          end,
-        },
+        ensure_installed = server_names,
+        automatic_enable = server_names,
       }
     end,
   },
@@ -625,7 +639,17 @@ require('lazy').setup({
         end
       end,
       formatters_by_ft = {
+        go = { 'goimports', 'gofumpt' },
+        javascript = { 'prettierd', 'prettier', stop_after_first = true },
+        javascriptreact = { 'prettierd', 'prettier', stop_after_first = true },
+        json = { 'prettierd', 'prettier', stop_after_first = true },
+        jsonc = { 'prettierd', 'prettier', stop_after_first = true },
         lua = { 'stylua' },
+        python = { 'ruff_organize_imports', 'ruff_format' },
+        rust = { 'rustfmt', lsp_format = 'fallback' },
+        sh = { 'shfmt' },
+        typescript = { 'prettierd', 'prettier', stop_after_first = true },
+        typescriptreact = { 'prettierd', 'prettier', stop_after_first = true },
       },
     },
   },
@@ -795,20 +819,86 @@ require('lazy').setup({
   },
   {
     'nvim-treesitter/nvim-treesitter',
+    branch = 'main',
+    lazy = false,
     build = ':TSUpdate',
-    main = 'nvim-treesitter.configs',
-    -- NO 'dependencies' table here for nvim-treesitter-textobjects, as per original Kickstart
-    opts = { -- Using Kickstart's default opts for treesitter
-      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' },
-      auto_install = true,
-      highlight = {
-        enable = true,
-        additional_vim_regex_highlighting = { 'ruby' },
-      },
-      indent = { enable = true, disable = { 'ruby' } },
-      -- No 'textobjects' or 'incremental_selection' keymaps here, as per original Kickstart's opts.
-      -- Kickstart mentions incremental selection is included, but doesn't set specific keymaps in its opts.
-    },
+    config = function()
+      local treesitter = require 'nvim-treesitter'
+      local parser_languages = {
+        'bash',
+        'c',
+        'diff',
+        'go',
+        'gomod',
+        'gosum',
+        'gowork',
+        'html',
+        'javascript',
+        'jsx',
+        'jsdoc',
+        'json',
+        'lua',
+        'luadoc',
+        'markdown',
+        'markdown_inline',
+        'python',
+        'query',
+        'rust',
+        'tsx',
+        'typescript',
+        'vim',
+        'vimdoc',
+      }
+      local filetypes = {
+        'sh',
+        'bash',
+        'zsh',
+        'c',
+        'diff',
+        'go',
+        'gomod',
+        'gosum',
+        'gowork',
+        'html',
+        'javascript',
+        'javascriptreact',
+        'json',
+        'jsonc',
+        'lua',
+        'luadoc',
+        'markdown',
+        'python',
+        'query',
+        'rust',
+        'typescript',
+        'typescriptreact',
+        'vim',
+        'vimdoc',
+      }
+
+      treesitter.setup()
+
+      if vim.fn.executable 'tree-sitter' == 1 then
+        local installed = treesitter.get_installed 'parsers'
+        local missing = vim.tbl_filter(function(lang)
+          return not vim.list_contains(installed, lang)
+        end, parser_languages)
+
+        if #missing > 0 then
+          treesitter.install(missing, { summary = true })
+        end
+      end
+
+      vim.api.nvim_create_autocmd('FileType', {
+        group = vim.api.nvim_create_augroup('kickstart-treesitter', { clear = true }),
+        pattern = filetypes,
+        callback = function(args)
+          if pcall(vim.treesitter.start, args.buf) then
+            vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+          end
+        end,
+      })
+    end,
   },
   {
     'windwp/nvim-autopairs',
@@ -824,13 +914,13 @@ require('lazy').setup({
   --   -- Completion for `blink.cmp`
   --   dependencies = { 'saghen/blink.cmp' },
   -- },
-  {
-    dir = '~/dumpdump/claude-code.nvim/agent-cli.nvim', -- Replace with your actual local path
-    name = 'agent-cli', -- Optional: gives it a specific name in the Lazy UI
-    config = function()
-      require('agent-cli').setup {}
-    end,
-  },
+  -- {
+  --   dir = '~/dumpdump/claude-code.nvim/agent-cli.nvim', -- Replace with your actual local path
+  --   name = 'agent-cli', -- Optional: gives it a specific name in the Lazy UI
+  --   config = function()
+  --     require('agent-cli').setup {}
+  --   end,
+  -- },
   -- Removed commented out 'windwp/nvim-ts-autotag' as it's not in original Kickstart
   -- require 'kickstart.plugins.debug',
   -- require 'kickstart.plugins.indent_line',
